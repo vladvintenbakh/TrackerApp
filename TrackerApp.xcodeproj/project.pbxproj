@@ -7,19 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		602A10972B9D6B6300F65D7F /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A10962B9D6B6300F65D7F /* StatsViewController.swift */; };
+		602A10992B9D6BF300F65D7F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A10982B9D6BF300F65D7F /* TabBarController.swift */; };
 		60FB4AA42B9AEF3F0058AED1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FB4AA32B9AEF3F0058AED1 /* AppDelegate.swift */; };
 		60FB4AA62B9AEF3F0058AED1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FB4AA52B9AEF3F0058AED1 /* SceneDelegate.swift */; };
-		60FB4AA82B9AEF3F0058AED1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FB4AA72B9AEF3F0058AED1 /* ViewController.swift */; };
+		60FB4AA82B9AEF3F0058AED1 /* TrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FB4AA72B9AEF3F0058AED1 /* TrackersViewController.swift */; };
 		60FB4AAE2B9AEF3F0058AED1 /* TrackerApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60FB4AAC2B9AEF3F0058AED1 /* TrackerApp.xcdatamodeld */; };
 		60FB4AB02B9AEF400058AED1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60FB4AAF2B9AEF400058AED1 /* Assets.xcassets */; };
 		60FB4AB32B9AEF400058AED1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60FB4AB12B9AEF400058AED1 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		602A10962B9D6B6300F65D7F /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		602A10982B9D6BF300F65D7F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		60FB4AA02B9AEF3F0058AED1 /* TrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60FB4AA32B9AEF3F0058AED1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60FB4AA52B9AEF3F0058AED1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		60FB4AA72B9AEF3F0058AED1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		60FB4AA72B9AEF3F0058AED1 /* TrackersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewController.swift; sourceTree = "<group>"; };
 		60FB4AAD2B9AEF3F0058AED1 /* TrackerApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackerApp.xcdatamodel; sourceTree = "<group>"; };
 		60FB4AAF2B9AEF400058AED1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60FB4AB22B9AEF400058AED1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +41,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60624AEF2B9D6A7D00F1E7CA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				60FB4AA72B9AEF3F0058AED1 /* TrackersViewController.swift */,
+				602A10962B9D6B6300F65D7F /* StatsViewController.swift */,
+				602A10982B9D6BF300F65D7F /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		60FB4A972B9AEF3F0058AED1 = {
 			isa = PBXGroup;
 			children = (
@@ -56,9 +70,9 @@
 		60FB4AA22B9AEF3F0058AED1 /* TrackerApp */ = {
 			isa = PBXGroup;
 			children = (
+				60624AEF2B9D6A7D00F1E7CA /* Controllers */,
 				60FB4AA32B9AEF3F0058AED1 /* AppDelegate.swift */,
 				60FB4AA52B9AEF3F0058AED1 /* SceneDelegate.swift */,
-				60FB4AA72B9AEF3F0058AED1 /* ViewController.swift */,
 				60FB4AAF2B9AEF400058AED1 /* Assets.xcassets */,
 				60FB4AB12B9AEF400058AED1 /* LaunchScreen.storyboard */,
 				60FB4AB42B9AEF400058AED1 /* Info.plist */,
@@ -138,8 +152,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				60FB4AAE2B9AEF3F0058AED1 /* TrackerApp.xcdatamodeld in Sources */,
-				60FB4AA82B9AEF3F0058AED1 /* ViewController.swift in Sources */,
+				60FB4AA82B9AEF3F0058AED1 /* TrackersViewController.swift in Sources */,
 				60FB4AA42B9AEF3F0058AED1 /* AppDelegate.swift in Sources */,
+				602A10992B9D6BF300F65D7F /* TabBarController.swift in Sources */,
+				602A10972B9D6B6300F65D7F /* StatsViewController.swift in Sources */,
 				60FB4AA62B9AEF3F0058AED1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

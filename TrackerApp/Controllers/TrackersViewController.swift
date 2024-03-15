@@ -13,6 +13,8 @@ class TrackersViewController: UIViewController {
     private var trackerDatePicker: UIDatePicker!
     private var titleLabel: UILabel!
     private var trackerSearchBar: UISearchBar!
+    private var categories: [TrackerCategory]?
+    private var completedTrackers: [TrackerRecord]?
 
     override func viewDidLoad() {
         super.viewDidLoad()

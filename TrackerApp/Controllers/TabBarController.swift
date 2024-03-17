@@ -9,7 +9,9 @@ import UIKit
 
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
-        let firstVC = TrackersViewController()
+        let trackersVC = TrackersViewController()
+        let navigationVC = UINavigationController(rootViewController: trackersVC)
+        let firstVC = navigationVC
         firstVC.tabBarItem = UITabBarItem(title: "Trackers",
                                           image: UIImage(named: "TrackersTabBarIcon"),
                                           tag: 0)

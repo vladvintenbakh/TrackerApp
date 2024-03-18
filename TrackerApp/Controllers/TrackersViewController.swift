@@ -15,6 +15,7 @@ class TrackersViewController: UIViewController {
     private var completedTrackers: [TrackerRecord]?
     private var dateFormatter = DateFormatter()
     private var trackerCollectionView: UICollectionView!
+    private var emptyPlaceholderView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class TrackersViewController: UIViewController {
         setUpTitleLabel()
         setUpSearchBar()
         setUpCollectionView()
+        setUpEmptyCollectionPlaceholder()
     }
     
     private func setUpNavigationBar() {
@@ -45,7 +47,8 @@ class TrackersViewController: UIViewController {
     }
     
     @objc private func addTrackerButtonPressed() {
-        
+        let trackerTypeVC = TrackerTypeViewController()
+        present(trackerTypeVC, animated: true)
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -90,6 +93,7 @@ class TrackersViewController: UIViewController {
     private func setUpCollectionView() {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: UICollectionViewFlowLayout())
+        trackerCollectionView = collectionView
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         
@@ -98,6 +102,41 @@ class TrackersViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             collectionView.topAnchor.constraint(equalTo: trackerSearchBar.bottomAnchor, constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func setUpEmptyCollectionPlaceholder() {
+        let placeholderView = UIView()
+        placeholderView.translatesAutoresizingMaskIntoConstraints = false
+        emptyPlaceholderView = placeholderView
+        view.addSubview(emptyPlaceholderView)
+        
+        let imageView = UIImageView(image: UIImage(named: "StarPlaceholder"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        placeholderView.addSubview(imageView)
+        
+        let label = UILabel()
+        label.text = "What shall we track?"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.textColor = UIColor(named: "YPBlack")
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        placeholderView.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            placeholderView.leadingAnchor.constraint(equalTo: trackerCollectionView.leadingAnchor),
+            placeholderView.trailingAnchor.constraint(equalTo: trackerCollectionView.trailingAnchor),
+            placeholderView.topAnchor.constraint(equalTo: trackerCollectionView.topAnchor),
+            placeholderView.bottomAnchor.constraint(equalTo: trackerCollectionView.bottomAnchor),
+            
+            imageView.centerXAnchor.constraint(equalTo: placeholderView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: placeholderView.centerYAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 80),
+            imageView.widthAnchor.constraint(equalToConstant: 80),
+            
+            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            label.leadingAnchor.constraint(equalTo: trackerCollectionView.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: trackerCollectionView.trailingAnchor)
         ])
     }
 }

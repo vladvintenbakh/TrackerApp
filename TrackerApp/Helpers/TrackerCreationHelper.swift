@@ -84,7 +84,6 @@ class TrackerCreationHelper {
                                                constant: 16),
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                 constant: -16),
-//            textField.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             textField.heightAnchor.constraint(equalToConstant: 75)
         ])
         

@@ -15,6 +15,7 @@
 		602C41B22BA8170F0033713F /* TrackerCreationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */; };
 		602C41B42BA823250033713F /* TrackerOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41B32BA823250033713F /* TrackerOptionsTableViewCell.swift */; };
 		603BAC8F2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BAC8E2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift */; };
+		603BAC912BAA980A006F81D4 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BAC902BAA980A006F81D4 /* ColorCollectionViewCell.swift */; };
 		60526A832BA3F4E300B4DE14 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60526A822BA3F4E300B4DE14 /* Tracker.swift */; };
 		60526A852BA3F4EC00B4DE14 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60526A842BA3F4EC00B4DE14 /* TrackerCategory.swift */; };
 		60526A872BA3F4F300B4DE14 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60526A862BA3F4F300B4DE14 /* TrackerRecord.swift */; };
@@ -35,6 +36,7 @@
 		602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCreationHelper.swift; sourceTree = "<group>"; };
 		602C41B32BA823250033713F /* TrackerOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		603BAC8E2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
+		603BAC902BAA980A006F81D4 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		60526A822BA3F4E300B4DE14 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		60526A842BA3F4EC00B4DE14 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		60526A862BA3F4F300B4DE14 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				60526A862BA3F4F300B4DE14 /* TrackerRecord.swift */,
 				602C41B32BA823250033713F /* TrackerOptionsTableViewCell.swift */,
 				603BAC8E2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift */,
+				603BAC902BAA980A006F81D4 /* ColorCollectionViewCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				602A10972B9D6B6300F65D7F /* StatsViewController.swift in Sources */,
 				602C41AF2BA815E20033713F /* OneOffEventViewController.swift in Sources */,
 				60FB4AA62B9AEF3F0058AED1 /* SceneDelegate.swift in Sources */,
+				603BAC912BAA980A006F81D4 /* ColorCollectionViewCell.swift in Sources */,
 				60526A832BA3F4E300B4DE14 /* Tracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

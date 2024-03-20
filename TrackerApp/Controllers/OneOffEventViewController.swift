@@ -8,12 +8,12 @@
 import UIKit
 
 class OneOffEventViewController: UIViewController {
+    private var pageScrollView: UIScrollView!
+    private var mainContentArea: UIView!
     private var titleLabel: UILabel!
     private var trackerNameTextField: UITextField!
     private var optionsTableView: UITableView!
-    private var emojiCollectionLabel: UILabel!
     private var emojiCollectionView: UICollectionView!
-    private var colorCollectionLabel: UILabel!
     private var colorCollectionView: UICollectionView!
     private var actionButtonStackView: UIStackView!
     
@@ -23,55 +23,71 @@ class OneOffEventViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YPWhite")
         
+        setUpScrollView()
+        
+        setUpMainContentArea()
+        
         setUpTitleLabel()
         setUpTrackerNameTextField()
         setUpCategoryButton()
-        setUpEmojiCollectionLabel()
         setUpEmojiCollectionView()
-        setUpColorCollectionLabel()
         setUpColorCollectionView()
         setUpActionButtons()
         addRelativeConstraints()
     }
     
+    private func setUpScrollView() {
+        let scrollView = trackerCreationHelper.createPageScrollView(view: view)
+        
+        pageScrollView = scrollView
+    }
+    
+    private func setUpMainContentArea() {
+        let contentView = trackerCreationHelper.createMainContentView(view: pageScrollView)
+        
+        mainContentArea = contentView
+    }
+    
     private func setUpTitleLabel() {
-        let label = trackerCreationHelper.createTitleLabel(view: view, text: "New one-off event")
+        let label = trackerCreationHelper.createTitleLabel(view: mainContentArea,
+                                                           text: "New one-off event")
         titleLabel = label
     }
     
     private func setUpTrackerNameTextField() {
-        let textField = trackerCreationHelper.createTrackerNameTextField(view: view)
+        let textField = trackerCreationHelper.createTrackerNameTextField(view: mainContentArea)
         trackerNameTextField = textField
     }
     
     private func setUpCategoryButton() {
-        let tableView = trackerCreationHelper.createTrackerOptionsTableView(view: view, height: 75)
+        let tableView = trackerCreationHelper.createTrackerOptionsTableView(view: mainContentArea,
+                                                                            height: 75)
         optionsTableView = tableView
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(TrackerOptionsTableViewCell.self,
-                           forCellReuseIdentifier: TrackerOptionsTableViewCell.identifier)
-    }
-    
-    private func setUpEmojiCollectionLabel() {
-        let label = trackerCreationHelper.createCollectionLabel(view: view, text: "Emoji")
-        emojiCollectionLabel = label
     }
     
     private func setUpEmojiCollectionView() {
-        let collection = trackerCreationHelper.createCollectionView(view: view)
+        let collection = trackerCreationHelper.createCollectionView(view: mainContentArea)
         emojiCollectionView = collection
-    }
-    
-    private func setUpColorCollectionLabel() {
-        let label = trackerCreationHelper.createCollectionLabel(view: view, text: "Color")
-        colorCollectionLabel = label
+        
+        collection.register(EmojiCollectionViewCell.self,
+                            forCellWithReuseIdentifier: EmojiCollectionViewCell.identifier)
+        
+//        collection.dataSource = self
+//        collection.delegate = self
     }
     
     private func setUpColorCollectionView() {
-        let collection = trackerCreationHelper.createCollectionView(view: view)
+        let collection = trackerCreationHelper.createCollectionView(view: mainContentArea)
         colorCollectionView = collection
+        
+        collection.register(ColorCollectionViewCell.self,
+                            forCellWithReuseIdentifier: ColorCollectionViewCell.identifier)
+        
+//        collection.dataSource = self
+//        collection.delegate = self
     }
     
     private func setUpActionButtons() {
@@ -90,34 +106,32 @@ class OneOffEventViewController: UIViewController {
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         actionButtonStackView = stackView
-        view.addSubview(stackView)
+        
+        mainContentArea.addSubview(stackView)
     }
     
     private func addRelativeConstraints() {
         NSLayoutConstraint.activate([
-            trackerNameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 38),
+            trackerNameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
+                                                      constant: 38),
             
             optionsTableView.topAnchor.constraint(equalTo: trackerNameTextField.bottomAnchor,
                                                   constant: 24),
             
-            emojiCollectionLabel.topAnchor.constraint(equalTo: optionsTableView.bottomAnchor,
-                                                      constant: 32),
+            emojiCollectionView.topAnchor.constraint(equalTo: optionsTableView.bottomAnchor,
+                                                     constant: 32),
             
-            emojiCollectionView.topAnchor.constraint(equalTo: emojiCollectionLabel.bottomAnchor),
-            
-            colorCollectionLabel.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor,
-                                                      constant: 16),
-            
-            colorCollectionView.topAnchor.constraint(equalTo: colorCollectionLabel.bottomAnchor),
+            colorCollectionView.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor,
+                                                     constant: 16),
             
             actionButtonStackView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20
+                equalTo: mainContentArea.leadingAnchor, constant: 20
             ),
             actionButtonStackView.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20
+                equalTo: mainContentArea.trailingAnchor, constant: -20
             ),
             actionButtonStackView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor
+                equalTo: mainContentArea.bottomAnchor
             ),
             actionButtonStackView.topAnchor.constraint(
                 equalTo: colorCollectionView.bottomAnchor,

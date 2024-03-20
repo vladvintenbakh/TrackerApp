@@ -8,6 +8,40 @@
 import UIKit
 
 class TrackerCreationHelper {
+    func createPageScrollView(view: UIView) -> UIScrollView {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        
+        let guide = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: guide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+        ])
+        
+        return scrollView
+    }
+    
+    func createMainContentView(view: UIScrollView) -> UIView {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(contentView)
+        
+        let guide = view.contentLayoutGuide
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: guide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            
+            contentView.widthAnchor.constraint(equalTo: view.frameLayoutGuide.widthAnchor)
+        ])
+        
+        return contentView
+    }
+    
     func createTitleLabel(view: UIView, text: String) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -18,10 +52,10 @@ class TrackerCreationHelper {
         label.textColor = UIColor(named: "YPBlack")
         label.textAlignment = .center
         view.addSubview(label)
-        
+    
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 27)
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 27)
         ])
         
         return label
@@ -46,10 +80,11 @@ class TrackerCreationHelper {
         view.addSubview(textField)
         
         NSLayoutConstraint.activate([
-            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                constant: 16),
-            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                 constant: -16),
+//            textField.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             textField.heightAnchor.constraint(equalToConstant: 75)
         ])
         
@@ -64,32 +99,17 @@ class TrackerCreationHelper {
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                constant: 16),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                 constant: -16),
             tableView.heightAnchor.constraint(equalToConstant: height)
         ])
         
+        tableView.register(TrackerOptionsTableViewCell.self,
+                           forCellReuseIdentifier: TrackerOptionsTableViewCell.identifier)
+        
         return tableView
-    }
-    
-    func createCollectionLabel(view: UIView, text: String) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.text = text
-        label.textColor = UIColor(named: "YPBlack")
-        label.font = UIFont.systemFont(ofSize: 19, weight: .bold)
-        
-        view.addSubview(label)
-        
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                                           constant: 28)
-        ])
-        
-        return label
     }
     
     func createCollectionView(view: UIView) -> UICollectionView {
@@ -102,9 +122,9 @@ class TrackerCreationHelper {
         view.addSubview(collection)
         
         NSLayoutConstraint.activate([
-            collection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-//            collection.heightAnchor.constraint(equalToConstant: 100) // REMOVE THIS LATER
+            collection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collection.heightAnchor.constraint(equalToConstant: 300) // CHANGE THIS LATER
         ])
         
         return collection

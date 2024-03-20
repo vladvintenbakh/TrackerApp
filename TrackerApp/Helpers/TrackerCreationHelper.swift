@@ -8,6 +8,7 @@
 import UIKit
 
 class TrackerCreationHelper {
+    
     func createPageScrollView(view: UIView) -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,14 +117,13 @@ class TrackerCreationHelper {
                                           collectionViewLayout: UICollectionViewFlowLayout())
         collection.translatesAutoresizingMaskIntoConstraints = false
         
-        collection.backgroundColor = .systemYellow // REMOVE THIS LATER
+//        collection.backgroundColor = .systemYellow // REMOVE THIS LATER
         
         view.addSubview(collection)
         
         NSLayoutConstraint.activate([
             collection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collection.heightAnchor.constraint(equalToConstant: 300) // CHANGE THIS LATER
+            collection.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         return collection

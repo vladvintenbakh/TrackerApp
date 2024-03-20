@@ -19,6 +19,13 @@ class OneOffEventViewController: UIViewController {
     
     private let trackerCreationHelper = TrackerCreationHelper()
     
+    private let geometricParams = GeometricParams(cellCount: 6,
+                                                  leftInset: 18,
+                                                  rightInset: 18,
+                                                  cellSpacing: 5,
+                                                  topInset: 24,
+                                                  bottomInset: 24)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YPWhite")
@@ -75,8 +82,12 @@ class OneOffEventViewController: UIViewController {
         collection.register(EmojiCollectionViewCell.self,
                             forCellWithReuseIdentifier: EmojiCollectionViewCell.identifier)
         
-//        collection.dataSource = self
-//        collection.delegate = self
+        collection.register(CollectionHeader.self,
+                            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                            withReuseIdentifier: CollectionHeader.identifier)
+        
+        collection.dataSource = self
+        collection.delegate = self
     }
     
     private func setUpColorCollectionView() {
@@ -86,8 +97,12 @@ class OneOffEventViewController: UIViewController {
         collection.register(ColorCollectionViewCell.self,
                             forCellWithReuseIdentifier: ColorCollectionViewCell.identifier)
         
-//        collection.dataSource = self
-//        collection.delegate = self
+        collection.register(CollectionHeader.self,
+                            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                            withReuseIdentifier: CollectionHeader.identifier)
+        
+        collection.dataSource = self
+        collection.delegate = self
     }
     
     private func setUpActionButtons() {
@@ -120,9 +135,15 @@ class OneOffEventViewController: UIViewController {
             
             emojiCollectionView.topAnchor.constraint(equalTo: optionsTableView.bottomAnchor,
                                                      constant: 32),
+            emojiCollectionView.heightAnchor.constraint(
+                equalToConstant: calculateEmojiCollectionHeight()
+            ),
             
             colorCollectionView.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor,
                                                      constant: 16),
+            colorCollectionView.heightAnchor.constraint(
+                equalToConstant: calculateColorCollectionHeight()
+            ),
             
             actionButtonStackView.leadingAnchor.constraint(
                 equalTo: mainContentArea.leadingAnchor, constant: 20
@@ -138,6 +159,18 @@ class OneOffEventViewController: UIViewController {
                 constant: 16
             )
         ])
+    }
+    
+    private func calculateEmojiCollectionHeight() -> CGFloat {
+        let emojiCount = CGFloat(emojis.count)
+        let contentHeight = emojiCount / CGFloat(geometricParams.cellCount) * cellHeight
+        return contentHeight + geometricParams.topInset + geometricParams.bottomInset + 18
+    }
+    
+    private func calculateColorCollectionHeight() -> CGFloat {
+        let colorCount = CGFloat(colorOptions.count)
+        let contentHeight = colorCount / CGFloat(geometricParams.cellCount) * cellHeight
+        return contentHeight + geometricParams.topInset + geometricParams.bottomInset + 18
     }
 }
 
@@ -161,4 +194,96 @@ extension OneOffEventViewController: UITableViewDataSource {
 
 extension OneOffEventViewController: UITableViewDelegate {
     
+}
+
+extension OneOffEventViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, 
+                        numberOfItemsInSection section: Int) -> Int {
+        if collectionView == emojiCollectionView {
+            return emojis.count
+        } else if collectionView == colorCollectionView {
+            return colorOptions.count
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, 
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == emojiCollectionView {
+            let currentEmoji = emojis[indexPath.row]
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: EmojiCollectionViewCell.identifier,
+                for: indexPath
+            ) as? EmojiCollectionViewCell
+            cell?.setEmoji(currentEmoji)
+            return cell!
+        } else if collectionView == colorCollectionView {
+            let currentColor = colorOptions[indexPath.row]
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ColorCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ColorCollectionViewCell
+            cell?.setColor(currentColor)
+            return cell!
+        }
+        return UICollectionViewCell()
+    }
+}
+
+extension OneOffEventViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, 
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let contentSpace = collectionView.frame.width - geometricParams.paddingWidth
+        let width = contentSpace / CGFloat(geometricParams.cellCount)
+        return CGSize(width: width, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, 
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return geometricParams.cellSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, 
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        let insets = UIEdgeInsets(top: geometricParams.topInset,
+                                  left: geometricParams.leftInset,
+                                  bottom: geometricParams.bottomInset,
+                                  right: geometricParams.rightInset)
+        return insets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, 
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, 
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        var headerText: String
+        if collectionView == emojiCollectionView {
+            headerText = "Emoji"
+        } else if collectionView == colorCollectionView {
+            headerText = "Color"
+        } else {
+            headerText = ""
+        }
+        
+        if kind == UICollectionView.elementKindSectionHeader {
+            let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: CollectionHeader.identifier,
+                for: indexPath
+            ) as? CollectionHeader
+            view?.setHeaderText(headerText)
+            return view!
+        }
+        return UICollectionReusableView()
+    }
+    
+    // ADD HEADER REFERENCE SIZE
 }

@@ -116,8 +116,7 @@ class TrackerCreationHelper {
         let collection = UICollectionView(frame: .zero,
                                           collectionViewLayout: UICollectionViewFlowLayout())
         collection.translatesAutoresizingMaskIntoConstraints = false
-        
-//        collection.backgroundColor = .systemYellow // REMOVE THIS LATER
+        collection.isScrollEnabled = false
         
         view.addSubview(collection)
         

@@ -10,7 +10,7 @@ import UIKit
 class TrackerOptionsTableViewCell: UITableViewCell {
     static let identifier = "TrackerOptionsTableViewCell"
     
-    private let categoryLabel: UILabel = {
+    private let cellLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Category"
@@ -30,8 +30,6 @@ class TrackerOptionsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = UIColor(named: "TextFieldGray")
-        contentView.layer.cornerRadius = 16
-        contentView.layer.masksToBounds = true
         
         setUpViews()
     }
@@ -41,12 +39,12 @@ class TrackerOptionsTableViewCell: UITableViewCell {
     }
     
     private func setUpViews() {
-        contentView.addSubview(categoryLabel)
+        contentView.addSubview(cellLabel)
         contentView.addSubview(actionImageView)
         
         NSLayoutConstraint.activate([
-            categoryLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cellLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            cellLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             actionImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             actionImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
@@ -54,5 +52,9 @@ class TrackerOptionsTableViewCell: UITableViewCell {
             actionImageView.widthAnchor.constraint(equalToConstant: 24),
             actionImageView.heightAnchor.constraint(equalToConstant: 24)
         ])
+    }
+    
+    func setLabelText(_ text: String) {
+        cellLabel.text = text
     }
 }

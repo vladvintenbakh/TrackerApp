@@ -96,6 +96,8 @@ class TrackerCreationHelper {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.separatorStyle = .none
+        tableView.layer.cornerRadius = 16
+        tableView.layer.masksToBounds = true
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([

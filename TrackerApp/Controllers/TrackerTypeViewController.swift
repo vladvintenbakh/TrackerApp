@@ -12,7 +12,7 @@ class TrackerTypeViewController: UIViewController {
     private var titleLabel: UILabel!
     private var habitButton: UIButton!
     private var oneOffEventButton: UIButton!
-    private let oneOffEventViewController = OneOffEventViewController()
+    private let trackeroptionsMenuVC = TrackerOptionsMenuViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +95,6 @@ class TrackerTypeViewController: UIViewController {
     }
     
     @objc private func oneOffEventButtonPressed() {
-        present(oneOffEventViewController, animated: true)
+        present(trackeroptionsMenuVC, animated: true)
     }
 }

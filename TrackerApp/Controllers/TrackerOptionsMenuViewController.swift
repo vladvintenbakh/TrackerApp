@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OneOffEventViewController: UIViewController {
+class TrackerOptionsMenuViewController: UIViewController {
     private var pageScrollView: UIScrollView!
     private var mainContentArea: UIView!
     private var titleLabel: UILabel!
@@ -16,6 +16,8 @@ class OneOffEventViewController: UIViewController {
     private var emojiCollectionView: UICollectionView!
     private var colorCollectionView: UICollectionView!
     private var actionButtonStackView: UIStackView!
+    
+    private var includesSchedule = false
     
     private let trackerCreationHelper = TrackerCreationHelper()
     
@@ -36,7 +38,7 @@ class OneOffEventViewController: UIViewController {
         
         setUpTitleLabel()
         setUpTrackerNameTextField()
-        setUpCategoryButton()
+        setUpOptionsTable()
         setUpEmojiCollectionView()
         setUpColorCollectionView()
         setUpActionButtons()
@@ -66,9 +68,16 @@ class OneOffEventViewController: UIViewController {
         trackerNameTextField = textField
     }
     
-    private func setUpCategoryButton() {
-        let tableView = trackerCreationHelper.createTrackerOptionsTableView(view: mainContentArea,
+    private func setUpOptionsTable() {
+        var tableView: UITableView
+        if includesSchedule {
+            tableView = trackerCreationHelper.createTrackerOptionsTableView(view: mainContentArea,
+                                                                            height: 75 * 2)
+        } else {
+            tableView = trackerCreationHelper.createTrackerOptionsTableView(view: mainContentArea,
                                                                             height: 75)
+        }
+        
         optionsTableView = tableView
         
         tableView.dataSource = self
@@ -172,10 +181,17 @@ class OneOffEventViewController: UIViewController {
         let contentHeight = colorCount / CGFloat(geometricParams.cellCount) * cellHeight
         return contentHeight + geometricParams.topInset + geometricParams.bottomInset + 18
     }
+    
+    func setScheduleFlag(_ flag: Bool) {
+        includesSchedule = flag
+    }
 }
 
-extension OneOffEventViewController: UITableViewDataSource {
+extension TrackerOptionsMenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if includesSchedule {
+            return 2
+        }
         return 1
     }
     
@@ -184,6 +200,12 @@ extension OneOffEventViewController: UITableViewDataSource {
             withIdentifier: TrackerOptionsTableViewCell.identifier,
             for: indexPath
         ) as! TrackerOptionsTableViewCell
+        
+        let currentRow = indexPath.row
+        if currentRow == 1 {
+            cell.setLabelText("Schedule")
+        }
+        
         return cell
     }
     
@@ -192,11 +214,11 @@ extension OneOffEventViewController: UITableViewDataSource {
     }
 }
 
-extension OneOffEventViewController: UITableViewDelegate {
+extension TrackerOptionsMenuViewController: UITableViewDelegate {
     
 }
 
-extension OneOffEventViewController: UICollectionViewDataSource {
+extension TrackerOptionsMenuViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, 
                         numberOfItemsInSection section: Int) -> Int {
         if collectionView == emojiCollectionView {
@@ -230,7 +252,7 @@ extension OneOffEventViewController: UICollectionViewDataSource {
     }
 }
 
-extension OneOffEventViewController: UICollectionViewDelegateFlowLayout {
+extension TrackerOptionsMenuViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, 
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

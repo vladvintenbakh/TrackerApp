@@ -11,7 +11,7 @@
 		602A10992B9D6BF300F65D7F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A10982B9D6BF300F65D7F /* TabBarController.swift */; };
 		602C41AB2BA7EC9B0033713F /* TrackerTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41AA2BA7EC9B0033713F /* TrackerTypeViewController.swift */; };
 		602C41AD2BA7F58A0033713F /* CollectionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41AC2BA7F58A0033713F /* CollectionConstants.swift */; };
-		602C41AF2BA815E20033713F /* OneOffEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41AE2BA815E20033713F /* OneOffEventViewController.swift */; };
+		602C41AF2BA815E20033713F /* TrackerOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41AE2BA815E20033713F /* TrackerOptionsMenuViewController.swift */; };
 		602C41B22BA8170F0033713F /* TrackerCreationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */; };
 		602C41B42BA823250033713F /* TrackerOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41B32BA823250033713F /* TrackerOptionsTableViewCell.swift */; };
 		603BAC8F2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BAC8E2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift */; };
@@ -34,7 +34,7 @@
 		602A10982B9D6BF300F65D7F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		602C41AA2BA7EC9B0033713F /* TrackerTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerTypeViewController.swift; sourceTree = "<group>"; };
 		602C41AC2BA7F58A0033713F /* CollectionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionConstants.swift; sourceTree = "<group>"; };
-		602C41AE2BA815E20033713F /* OneOffEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneOffEventViewController.swift; sourceTree = "<group>"; };
+		602C41AE2BA815E20033713F /* TrackerOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerOptionsMenuViewController.swift; sourceTree = "<group>"; };
 		602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCreationHelper.swift; sourceTree = "<group>"; };
 		602C41B32BA823250033713F /* TrackerOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		603BAC8E2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 				602A10962B9D6B6300F65D7F /* StatsViewController.swift */,
 				602A10982B9D6BF300F65D7F /* TabBarController.swift */,
 				602C41AA2BA7EC9B0033713F /* TrackerTypeViewController.swift */,
-				602C41AE2BA815E20033713F /* OneOffEventViewController.swift */,
+				602C41AE2BA815E20033713F /* TrackerOptionsMenuViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -216,7 +216,7 @@
 				602C41AB2BA7EC9B0033713F /* TrackerTypeViewController.swift in Sources */,
 				60526A872BA3F4F300B4DE14 /* TrackerRecord.swift in Sources */,
 				602A10972B9D6B6300F65D7F /* StatsViewController.swift in Sources */,
-				602C41AF2BA815E20033713F /* OneOffEventViewController.swift in Sources */,
+				602C41AF2BA815E20033713F /* TrackerOptionsMenuViewController.swift in Sources */,
 				60FB4AA62B9AEF3F0058AED1 /* SceneDelegate.swift in Sources */,
 				603BAC952BAAD57F006F81D4 /* GeometricParams.swift in Sources */,
 				603BAC912BAA980A006F81D4 /* ColorCollectionViewCell.swift in Sources */,

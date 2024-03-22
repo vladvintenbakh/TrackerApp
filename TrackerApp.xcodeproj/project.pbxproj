@@ -83,14 +83,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		60624AEF2B9D6A7D00F1E7CA /* Controllers */ = {
+		60624AEF2B9D6A7D00F1E7CA /* StatsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				60FB4AA72B9AEF3F0058AED1 /* TrackersViewController.swift */,
 				602A10962B9D6B6300F65D7F /* StatsViewController.swift */,
-				602A10982B9D6BF300F65D7F /* TabBarController.swift */,
 			);
-			path = Controllers;
+			path = StatsScreen;
 			sourceTree = "<group>";
 		};
 		60A31AE72BAD708C00B95A5F /* NewTrackerCreation */ = {
@@ -123,6 +121,14 @@
 			path = MenuCollections;
 			sourceTree = "<group>";
 		};
+		60A31AEA2BAD71A300B95A5F /* TrackerListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60FB4AA72B9AEF3F0058AED1 /* TrackersViewController.swift */,
+			);
+			path = TrackerListScreen;
+			sourceTree = "<group>";
+		};
 		60FB4A972B9AEF3F0058AED1 = {
 			isa = PBXGroup;
 			children = (
@@ -142,10 +148,11 @@
 		60FB4AA22B9AEF3F0058AED1 /* TrackerApp */ = {
 			isa = PBXGroup;
 			children = (
+				60A31AEA2BAD71A300B95A5F /* TrackerListScreen */,
 				60A31AE72BAD708C00B95A5F /* NewTrackerCreation */,
 				602C41B02BA817020033713F /* Helpers */,
 				60526A812BA3F49500B4DE14 /* Models */,
-				60624AEF2B9D6A7D00F1E7CA /* Controllers */,
+				60624AEF2B9D6A7D00F1E7CA /* StatsScreen */,
 				60FB4AA32B9AEF3F0058AED1 /* AppDelegate.swift */,
 				60FB4AA52B9AEF3F0058AED1 /* SceneDelegate.swift */,
 				60FB4AAF2B9AEF400058AED1 /* Assets.xcassets */,
@@ -153,6 +160,7 @@
 				60FB4AB42B9AEF400058AED1 /* Info.plist */,
 				60FB4AAC2B9AEF3F0058AED1 /* TrackerApp.xcdatamodeld */,
 				602C41AC2BA7F58A0033713F /* CollectionConstants.swift */,
+				602A10982B9D6BF300F65D7F /* TabBarController.swift */,
 			);
 			path = TrackerApp;
 			sourceTree = "<group>";

@@ -20,6 +20,7 @@ class TrackerOptionsMenuViewController: UIViewController {
     private var includesSchedule = false
     
     private let trackerCreationHelper = TrackerCreationHelper()
+    private let trackerType: String
     
     private let geometricParams = GeometricParams(cellCount: 6,
                                                   leftInset: 18,
@@ -45,6 +46,15 @@ class TrackerOptionsMenuViewController: UIViewController {
         addRelativeConstraints()
     }
     
+    init(trackerType: String) {
+        self.trackerType = trackerType
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setUpScrollView() {
         let scrollView = trackerCreationHelper.createPageScrollView(view: view)
         
@@ -59,7 +69,7 @@ class TrackerOptionsMenuViewController: UIViewController {
     
     private func setUpTitleLabel() {
         let label = trackerCreationHelper.createTitleLabel(view: mainContentArea,
-                                                           text: "New one-off event")
+                                                           text: trackerType)
         titleLabel = label
     }
     
@@ -70,7 +80,7 @@ class TrackerOptionsMenuViewController: UIViewController {
     
     private func setUpOptionsTable() {
         var tableView: UITableView
-        if includesSchedule {
+        if trackerType == "New habit" {
             tableView = trackerCreationHelper.createTrackerOptionsTableView(view: mainContentArea,
                                                                             height: 75 * 2)
         } else {
@@ -189,7 +199,7 @@ class TrackerOptionsMenuViewController: UIViewController {
 
 extension TrackerOptionsMenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if includesSchedule {
+        if trackerType == "New habit" {
             return 2
         }
         return 1

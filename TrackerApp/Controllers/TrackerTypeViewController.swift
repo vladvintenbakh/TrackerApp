@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol TrackerTypeViewControllerDelegate: AnyObject {
+    func didPickTrackerType(_ type: String)
+}
+
 class TrackerTypeViewController: UIViewController {
     
     private var titleLabel: UILabel!
     private var habitButton: UIButton!
     private var oneOffEventButton: UIButton!
-    private let trackeroptionsMenuVC = TrackerOptionsMenuViewController()
+    
+    weak var delegate: TrackerTypeViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,10 +96,10 @@ class TrackerTypeViewController: UIViewController {
     }
     
     @objc private func habitButtonPressed() {
-        
+        delegate?.didPickTrackerType("New habit")
     }
     
     @objc private func oneOffEventButtonPressed() {
-        present(trackeroptionsMenuVC, animated: true)
+        delegate?.didPickTrackerType("New one-off event")
     }
 }

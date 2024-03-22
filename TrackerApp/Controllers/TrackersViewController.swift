@@ -48,6 +48,7 @@ class TrackersViewController: UIViewController {
     
     @objc private func addTrackerButtonPressed() {
         let trackerTypeVC = TrackerTypeViewController()
+        trackerTypeVC.delegate = self
         present(trackerTypeVC, animated: true)
     }
     
@@ -138,5 +139,13 @@ class TrackersViewController: UIViewController {
             label.leadingAnchor.constraint(equalTo: trackerCollectionView.leadingAnchor),
             label.trailingAnchor.constraint(equalTo: trackerCollectionView.trailingAnchor)
         ])
+    }
+}
+
+extension TrackersViewController: TrackerTypeViewControllerDelegate {
+    func didPickTrackerType(_ type: String) {
+        dismiss(animated: true)
+        let trackerOptionsMenuVC = TrackerOptionsMenuViewController(trackerType: type)
+        present(trackerOptionsMenuVC, animated: true)
     }
 }

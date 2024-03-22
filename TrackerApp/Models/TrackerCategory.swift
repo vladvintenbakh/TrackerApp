@@ -10,4 +10,8 @@ import Foundation
 struct TrackerCategory {
     let title: String
     let trackers: [Tracker]
+    
+    static let defaultCategories: [TrackerCategory] = [
+        TrackerCategory(title: "Default", trackers: [])
+    ]
 }

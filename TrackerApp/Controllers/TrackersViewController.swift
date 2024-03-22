@@ -11,7 +11,7 @@ class TrackersViewController: UIViewController {
     
     private var titleLabel: UILabel!
     private var trackerSearchBar: UISearchBar!
-    private var categories: [TrackerCategory]?
+    private var categories: [TrackerCategory] = TrackerCategory.defaultCategories
     private var completedTrackers: [TrackerRecord]?
     private var dateFormatter = DateFormatter()
     private var trackerCollectionView: UICollectionView!
@@ -146,6 +146,30 @@ extension TrackersViewController: TrackerTypeViewControllerDelegate {
     func didPickTrackerType(_ type: String) {
         dismiss(animated: true)
         let trackerOptionsMenuVC = TrackerOptionsMenuViewController(trackerType: type)
+        trackerOptionsMenuVC.delegate = self
         present(trackerOptionsMenuVC, animated: true)
+    }
+}
+
+extension TrackersViewController: TrackerOptionsMenuViewControllerDelegate {
+    func didPressCancelButton() {
+        dismiss(animated: true)
+    }
+    
+    func didPressCreateButton(category: String, newTracker: Tracker) {
+        dismiss(animated: true)
+        
+        var index: Int?
+        for i in 0..<categories.count {
+            if categories[i].title == category {
+                index = i
+            }
+        }
+        guard let index else { return }
+        
+        let newTrackerList = categories[index].trackers + [newTracker]
+        categories[index] = TrackerCategory(title: category,
+                                            trackers: newTrackerList)
+        trackerCollectionView.reloadData()
     }
 }

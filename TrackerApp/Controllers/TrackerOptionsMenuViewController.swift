@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol TrackerOptionsMenuViewControllerDelegate: AnyObject {
+    func didPressCancelButton()
+    func didPressCreateButton(category: String, newTracker: Tracker)
+}
+
 class TrackerOptionsMenuViewController: UIViewController {
     private var pageScrollView: UIScrollView!
     private var mainContentArea: UIView!
@@ -15,12 +20,24 @@ class TrackerOptionsMenuViewController: UIViewController {
     private var optionsTableView: UITableView!
     private var emojiCollectionView: UICollectionView!
     private var colorCollectionView: UICollectionView!
+    private var cancelButton: UIButton!
+    private var createButton: UIButton!
     private var actionButtonStackView: UIStackView!
-    
-    private var includesSchedule = false
     
     private let trackerCreationHelper = TrackerCreationHelper()
     private let trackerType: String
+
+    private var trackerObject: Tracker.TrackerObject {
+        didSet {
+            validateFormFields()
+        }
+    }
+    
+    private var category: String? = TrackerCategory.defaultCategories[0].title {
+        didSet {
+            validateFormFields()
+        }
+    }
     
     private let geometricParams = GeometricParams(cellCount: 6,
                                                   leftInset: 18,
@@ -28,6 +45,17 @@ class TrackerOptionsMenuViewController: UIViewController {
                                                   cellSpacing: 5,
                                                   topInset: 24,
                                                   bottomInset: 24)
+    
+    weak var delegate: TrackerOptionsMenuViewControllerDelegate?
+    
+    private let textFieldLimitMessage: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.textColor = UIColor(named: "YPRed")
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +72,17 @@ class TrackerOptionsMenuViewController: UIViewController {
         setUpColorCollectionView()
         setUpActionButtons()
         addRelativeConstraints()
+        
+        trackerObject.emoji = emojis[0]
+        trackerObject.color = colorOptions[0]
+        
+        validateFormFields()
     }
     
-    init(trackerType: String) {
+    init(trackerType: String, data: Tracker.TrackerObject = Tracker.TrackerObject()) {
         self.trackerType = trackerType
+        self.trackerObject = data
+        self.trackerObject.schedule = trackerType == "New habit" ? [] : nil
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -75,6 +110,7 @@ class TrackerOptionsMenuViewController: UIViewController {
     
     private func setUpTrackerNameTextField() {
         let textField = trackerCreationHelper.createTrackerNameTextField(view: mainContentArea)
+        textField.addTarget(self, action: #selector(changedTextFieldInput), for: .editingChanged)
         trackerNameTextField = textField
     }
     
@@ -129,10 +165,17 @@ class TrackerOptionsMenuViewController: UIViewController {
         cancelButton.setTitleColor(UIColor(named: "YPRed"), for: .normal)
         cancelButton.layer.borderColor = UIColor(named: "YPRed")?.cgColor
         cancelButton.layer.borderWidth = 1
+        cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
+        self.cancelButton = cancelButton
         
         let createButton = trackerCreationHelper.createActionButton(text: "Create")
         createButton.backgroundColor = UIColor(named: "YPBlack")
         createButton.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
+        createButton.isEnabled = false
+        createButton.addTarget(self, action: #selector(createButtonPressed), for: .touchUpInside)
+        createButton.isEnabled = false
+        createButton.backgroundColor = UIColor(named: "YPGray")
+        self.createButton = createButton
         
         let stackView = UIStackView(arrangedSubviews: [cancelButton, createButton])
         stackView.axis = .horizontal
@@ -192,8 +235,62 @@ class TrackerOptionsMenuViewController: UIViewController {
         return contentHeight + geometricParams.topInset + geometricParams.bottomInset + 18
     }
     
-    func setScheduleFlag(_ flag: Bool) {
-        includesSchedule = flag
+    @objc private func changedTextFieldInput(_ sender: UITextField) {
+        guard let input = sender.text else { return }
+        trackerObject.name = input
+    }
+    
+    @objc private func cancelButtonPressed() {
+        delegate?.didPressCancelButton()
+    }
+    
+    @objc private func createButtonPressed() {
+        guard let category,
+              let emoji = trackerObject.emoji,
+              let color = trackerObject.color 
+        else { return }
+        
+        let tracker = Tracker(id: UUID(),
+                              name: trackerObject.name,
+                              emoji: emoji,
+                              color: color,
+                              schedule: trackerObject.schedule)
+        
+        delegate?.didPressCreateButton(category: category, newTracker: tracker)
+    }
+    
+    private func validateFormFields() {
+        
+        var violatingConditions = [
+            trackerObject.name.count == 0,
+            trackerObject.emoji == nil,
+            trackerObject.color == nil,
+            category == nil
+        ]
+        
+        if let schedule = trackerObject.schedule {
+            let scheduleCondition = schedule.isEmpty
+            violatingConditions.append(scheduleCondition)
+        }
+        
+        for condition in violatingConditions {
+            if condition {
+                enableCreateButton(false)
+                return
+            }
+        }
+        
+        enableCreateButton(true)
+    }
+    
+    private func enableCreateButton(_ flag: Bool) {
+        if flag {
+            createButton.isEnabled = true
+            createButton.backgroundColor = UIColor(named: "YPBlack")
+        } else {
+            createButton.isEnabled = false
+            createButton.backgroundColor = UIColor(named: "YPGray")
+        }
     }
 }
 

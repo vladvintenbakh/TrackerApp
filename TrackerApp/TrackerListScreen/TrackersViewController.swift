@@ -98,6 +98,13 @@ class TrackersViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         
+        collectionView.register(TrackerCollectionViewCell.self,
+                                forCellWithReuseIdentifier: TrackerCollectionViewCell.identifier)
+        
+        collectionView.register(CategoryHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: CategoryHeader.identifier)
+        
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),

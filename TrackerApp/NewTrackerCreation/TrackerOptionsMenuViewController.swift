@@ -48,6 +48,40 @@ class TrackerOptionsMenuViewController: UIViewController {
     
     weak var delegate: TrackerOptionsMenuViewControllerDelegate?
     
+    private var scheduleValueText: String? {
+        let schedule = trackerObject.schedule
+        guard let schedule else { return nil }
+        
+        if schedule.count == 7 {
+            return "Every day"
+        }
+        
+        var conciseNotationList: [String] = []
+        for item in schedule {
+            var stringToAdd: String
+            switch item {
+            case .mon:
+                stringToAdd = "Mon"
+            case .tue:
+                stringToAdd = "Tue"
+            case .wed:
+                stringToAdd = "Wed"
+            case .thu:
+                stringToAdd = "Thu"
+            case .fri:
+                stringToAdd = "Fri"
+            case .sat:
+                stringToAdd = "Sat"
+            case .sun:
+                stringToAdd = "Sun"
+            }
+            conciseNotationList.append(stringToAdd)
+        }
+        
+        let result = conciseNotationList.joined(separator: ", ")
+        return result
+    }
+    
     private let textFieldLimitMessage: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -79,9 +113,9 @@ class TrackerOptionsMenuViewController: UIViewController {
         validateFormFields()
     }
     
-    init(trackerType: String, data: Tracker.TrackerObject = Tracker.TrackerObject()) {
+    init(trackerType: String, trackerObject: Tracker.TrackerObject = Tracker.TrackerObject()) {
         self.trackerType = trackerType
-        self.trackerObject = data
+        self.trackerObject = trackerObject
         self.trackerObject.schedule = trackerType == "New habit" ? [] : nil
         super.init(nibName: nil, bundle: nil)
     }
@@ -309,12 +343,14 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
         ) as! TrackerOptionsTableViewCell
         
         let currentRow = indexPath.row
-        if currentRow == 1 {
-            cell.setLabelText("Schedule")
-        }
         
         if currentRow == 0 {
             if category != nil { cell.setValue(category!) }
+        }
+        
+        if currentRow == 1 {
+            cell.setLabelText("Schedule")
+            if scheduleValueText != nil { cell.setValue(scheduleValueText!) }
         }
         
         return cell
@@ -326,7 +362,29 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
 }
 
 extension TrackerOptionsMenuViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentRow = indexPath.row
+        if currentRow == 1 {
+            let schedule = trackerObject.schedule
+            guard let schedule else { return }
+            
+            let selectedWeekdaySet = Set(schedule)
+            let scheduleSelectionVC = ScheduleSelectionViewController(selectedWeekdaySet: selectedWeekdaySet)
+            scheduleSelectionVC.delegate = self
+            
+            let navigationVC = UINavigationController(rootViewController: scheduleSelectionVC)
+            present(navigationVC, animated: true)
+        }
+    }
+}
+
+extension TrackerOptionsMenuViewController: ScheduleSelectionViewControllerDelegate {
+    func didSelectWeekdays(_ weekdays: [Weekday]) {
+        trackerObject.schedule = weekdays
+        
+        optionsTableView.reloadData()
+        dismiss(animated: true)
+    }
 }
 
 extension TrackerOptionsMenuViewController: UICollectionViewDataSource {

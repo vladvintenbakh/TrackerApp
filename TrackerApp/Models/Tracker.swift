@@ -7,16 +7,6 @@
 
 import UIKit
 
-enum Weekday: String {
-    case mon = "Monday"
-    case tue = "Tuesday"
-    case wed = "Wednesday"
-    case thu = "Thursday"
-    case fri = "Friday"
-    case sat = "Saturday"
-    case sun = "Sunday"
-}
-
 struct Tracker {
     let id: UUID
     let name: String

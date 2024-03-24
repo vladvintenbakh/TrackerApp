@@ -11,8 +11,11 @@ class TrackersViewController: UIViewController {
     
     private var titleLabel: UILabel!
     private var trackerSearchBar: UISearchBar!
+    
     private var categories: [TrackerCategory] = TrackerCategory.defaultCategories
-    private var completedTrackers: [TrackerRecord]?
+    
+    private var completedTrackers: Set<TrackerRecord> = []
+    
     private var dateFormatter = DateFormatter()
     private var trackerCollectionView: UICollectionView!
     private var emptyPlaceholderView: UIView!
@@ -185,5 +188,9 @@ extension TrackersViewController: TrackerOptionsMenuViewControllerDelegate {
         categories[index] = TrackerCategory(title: category,
                                             trackers: newTrackerList)
         trackerCollectionView.reloadData()
+        
+        print("Name:", newTracker.name)
+        print("Emoji:", newTracker.emoji)
+        print("Schedule:", newTracker.schedule ?? Weekday.mon)
     }
 }

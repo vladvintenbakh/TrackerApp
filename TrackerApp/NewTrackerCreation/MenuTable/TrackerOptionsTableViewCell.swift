@@ -19,6 +19,14 @@ class TrackerOptionsTableViewCell: UITableViewCell {
         return label
     }()
     
+    private let selectedValueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.textColor = UIColor(named: "YPGray")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,10 +34,19 @@ class TrackerOptionsTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private let labelValueStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 2
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = UIColor(named: "TextFieldGray")
+        selectionStyle = .none
         
         setUpViews()
     }
@@ -39,12 +56,17 @@ class TrackerOptionsTableViewCell: UITableViewCell {
     }
     
     private func setUpViews() {
-        contentView.addSubview(cellLabel)
+        labelValueStack.addArrangedSubview(cellLabel)
+        labelValueStack.addArrangedSubview(selectedValueLabel)
+        contentView.addSubview(labelValueStack)
         contentView.addSubview(actionImageView)
         
         NSLayoutConstraint.activate([
-            cellLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            cellLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            labelValueStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                     constant: 16),
+            labelValueStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                      constant: -56),
+            labelValueStack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             actionImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             actionImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
@@ -56,5 +78,9 @@ class TrackerOptionsTableViewCell: UITableViewCell {
     
     func setLabelText(_ text: String) {
         cellLabel.text = text
+    }
+    
+    func setValue(_ text: String) {
+        selectedValueLabel.text = text
     }
 }

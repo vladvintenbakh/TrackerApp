@@ -313,6 +313,10 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
             cell.setLabelText("Schedule")
         }
         
+        if currentRow == 0 {
+            if category != nil { cell.setValue(category!) }
+        }
+        
         return cell
     }
     

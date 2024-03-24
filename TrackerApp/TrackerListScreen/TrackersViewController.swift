@@ -16,6 +16,13 @@ class TrackersViewController: UIViewController {
     private var dateFormatter = DateFormatter()
     private var trackerCollectionView: UICollectionView!
     private var emptyPlaceholderView: UIView!
+    
+    private let geometricParams = GeometricParams(cellCount: 2,
+                                                  leftInset: 16,
+                                                  rightInset: 16,
+                                                  cellSpacing: 9,
+                                                  topInset: -1,
+                                                  bottomInset: -1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +131,7 @@ class TrackersViewController: UIViewController {
         placeholderView.addSubview(imageView)
         
         let label = UILabel()
-        label.text = "What shall we track?"
+        label.text = "Nothing here for now"
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = UIColor(named: "YPBlack")
         label.textAlignment = .center

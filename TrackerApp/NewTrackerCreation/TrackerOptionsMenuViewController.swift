@@ -107,9 +107,6 @@ class TrackerOptionsMenuViewController: UIViewController {
         setUpActionButtons()
         addRelativeConstraints()
         
-        trackerObject.emoji = emojis[0]
-        trackerObject.color = colorOptions[0]
-        
         validateFormFields()
     }
     
@@ -497,5 +494,43 @@ extension TrackerOptionsMenuViewController: UICollectionViewDelegateFlowLayout {
                 withHorizontalFittingPriority: .required,
                 verticalFittingPriority: .fittingSizeLevel
             )
+    }
+}
+
+extension TrackerOptionsMenuViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == emojiCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell
+            guard let cell else { return }
+            
+            let currentRow = indexPath.row
+            trackerObject.emoji = emojis[currentRow]
+            
+            cell.contentView.backgroundColor = UIColor(named: "YPLightGray")
+        } else if collectionView == colorCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? ColorCollectionViewCell
+            guard let cell else { return }
+            
+            let currentRow = indexPath.row
+            let color = colorOptions[currentRow]
+            trackerObject.color = color
+            
+            cell.contentView.layer.borderWidth = 3
+            cell.contentView.layer.borderColor = color.withAlphaComponent(0.3).cgColor
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if collectionView == emojiCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell
+            guard let cell else { return }
+            
+            cell.contentView.backgroundColor = .clear
+        } else if collectionView == colorCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? ColorCollectionViewCell
+            guard let cell else { return }
+            
+            cell.contentView.layer.borderWidth = 0
+        }
     }
 }

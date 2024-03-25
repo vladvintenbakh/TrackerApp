@@ -189,8 +189,9 @@ extension TrackersViewController: TrackerOptionsMenuViewControllerDelegate {
                                             trackers: newTrackerList)
         trackerCollectionView.reloadData()
         
-        print("Name:", newTracker.name)
-        print("Emoji:", newTracker.emoji)
-        print("Schedule:", newTracker.schedule ?? Weekday.mon)
+//        print("Name:", newTracker.name)
+//        print("Emoji:", newTracker.emoji)
+//        print("Color:", newTracker.color)
+//        print("Schedule:", newTracker.schedule)
     }
 }

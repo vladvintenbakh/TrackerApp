@@ -71,9 +71,14 @@ class TrackersViewController: UIViewController {
     }
     
     private func setUpNavigationBar() {
+        let button = UIButton(type: .system)
         
-        let button = UIButton()
-        button.setImage(UIImage(named: "AddTrackerButtonBlack"), for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
+        let buttonImage = UIImage(systemName: "plus", withConfiguration: imageConfig)
+        button.setImage(buttonImage, for: .normal)
+        
+        button.tintColor = UIColor(named: "YPBlack")
+        
         button.addTarget(self, action: #selector(addTrackerButtonPressed), for: .touchUpInside)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
@@ -128,8 +133,8 @@ class TrackersViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 7),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ])
     }
     

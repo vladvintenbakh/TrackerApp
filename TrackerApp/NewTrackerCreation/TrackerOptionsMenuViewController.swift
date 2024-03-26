@@ -33,7 +33,7 @@ class TrackerOptionsMenuViewController: UIViewController {
         }
     }
     
-    private var category: String? = TrackerCategory.defaultCategories[0].title {
+    private var category: String? = TrackerCategory.pickDefaultCategory().title {
         didSet {
             validateFormFields()
         }

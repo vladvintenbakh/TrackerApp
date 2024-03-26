@@ -16,4 +16,9 @@ struct TrackerCategory {
         TrackerCategory(title: "Default 2", trackers: []),
         TrackerCategory(title: "Default 3", trackers: [])
     ]
+    
+    static func pickDefaultCategory() -> TrackerCategory {
+        let category = defaultCategories.randomElement()
+        return category!
+    }
 }

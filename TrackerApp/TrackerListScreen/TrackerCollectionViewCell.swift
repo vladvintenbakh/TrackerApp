@@ -56,7 +56,7 @@ class TrackerCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let markCompletedButton: UIButton = {
+    private lazy var markCompletedButton: UIButton = {
         let button = UIButton()
         button.tintColor = UIColor(named: "YPWhite")
         button.setImage(UIImage(named: "plus"), for: .normal)

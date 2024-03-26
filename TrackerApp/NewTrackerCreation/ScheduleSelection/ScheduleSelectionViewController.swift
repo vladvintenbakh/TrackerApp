@@ -24,7 +24,7 @@ class ScheduleSelectionViewController: UIViewController {
         return table
     }()
     
-    private let doneButton: UIButton = {
+    private lazy var doneButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "YPBlack")
         

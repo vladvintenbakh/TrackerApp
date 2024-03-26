@@ -22,7 +22,7 @@ class WeekdayTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let onOffSwitch: UISwitch = {
+    private lazy var onOffSwitch: UISwitch = {
         let switchView = UISwitch()
         switchView.onTintColor = .blue
         switchView.translatesAutoresizingMaskIntoConstraints = false

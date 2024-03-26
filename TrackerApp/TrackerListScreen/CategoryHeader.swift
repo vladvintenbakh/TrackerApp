@@ -23,7 +23,7 @@ class CategoryHeader: UICollectionReusableView {
         addSubview(headerLabel)
         
         NSLayoutConstraint.activate([
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 28),
             headerLabel.topAnchor.constraint(equalTo: topAnchor),
             headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])

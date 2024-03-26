@@ -78,6 +78,7 @@
 		602C41B02BA817020033713F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */,
 				603BAC942BAAD57F006F81D4 /* GeometricParams.swift */,
 			);
 			path = Helpers;
@@ -117,7 +118,6 @@
 				608F86382BAFD55A002AC724 /* ScheduleSelection */,
 				60A31AE92BAD70E700B95A5F /* MenuCollections */,
 				60A31AE82BAD70D100B95A5F /* MenuTable */,
-				602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */,
 				602C41AA2BA7EC9B0033713F /* TrackerTypeViewController.swift */,
 				602C41AE2BA815E20033713F /* TrackerOptionsMenuViewController.swift */,
 			);

@@ -12,6 +12,8 @@ struct TrackerCategory {
     let trackers: [Tracker]
     
     static let defaultCategories: [TrackerCategory] = [
-        TrackerCategory(title: "Default", trackers: [])
+        TrackerCategory(title: "Default 1", trackers: []),
+        TrackerCategory(title: "Default 2", trackers: []),
+        TrackerCategory(title: "Default 3", trackers: [])
     ]
 }

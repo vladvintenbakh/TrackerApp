@@ -15,23 +15,53 @@ class TrackersViewController: UIViewController {
     private var categories: [TrackerCategory] = TrackerCategory.defaultCategories
     
     private var completedTrackers: Set<TrackerRecord> = []
+    private var activeDate = Date()
     
-    private var dateFormatter = DateFormatter()
     private var trackerCollectionView: UICollectionView!
     private var emptyPlaceholderView: UIView!
     
     private let geometricParams = GeometricParams(cellCount: 2,
                                                   leftInset: 16,
                                                   rightInset: 16,
-                                                  cellSpacing: 9,
-                                                  topInset: -1,
-                                                  bottomInset: -1)
+                                                  cellSpacing: 10,
+                                                  topInset: 8,
+                                                  bottomInset: 16)
+    
+    private var visibleCategories: [TrackerCategory] {
+        
+        let weekday = Calendar.current.component(.weekday, from: activeDate)
+        var categoriesToDisplay: [TrackerCategory] = []
+        for category in categories {
+            
+            var trackersToDisplay: [Tracker] = []
+            for item in category.trackers {
+                let schedule = item.schedule
+                if schedule != nil {
+                    let scheduledWeekdays = Weekday.allCases[weekday > 1 ? weekday - 2 : weekday + 5]
+                    if schedule!.contains(scheduledWeekdays) {
+                        trackersToDisplay.append(item)
+                    }
+                } else {
+                    trackersToDisplay.append(item)
+                }
+            }
+            
+            if !trackersToDisplay.isEmpty {
+                let newCategory = TrackerCategory(title: category.title, trackers: trackersToDisplay)
+                categoriesToDisplay.append(newCategory)
+            }
+            
+        }
+        
+        let flag = !categoriesToDisplay.isEmpty
+        hideEmptyPlaceholderView(flag)
+        
+        return categoriesToDisplay
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YPWhite")
-        
-        dateFormatter.dateFormat = "dd.MM.yyyy"
         
         setUpNavigationBar()
         setUpTitleLabel()
@@ -51,6 +81,9 @@ class TrackersViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
+        
+        datePicker.maximumDate = Date()
+        
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePicker)
@@ -63,9 +96,8 @@ class TrackersViewController: UIViewController {
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
-        let selectedDate = sender.date
-        let formattedDate = dateFormatter.string(from: selectedDate)
-        print("Formatted date: \(formattedDate)")
+        activeDate = sender.date
+        trackerCollectionView.reloadData()
     }
     
     private func setUpTitleLabel() {
@@ -107,6 +139,9 @@ class TrackersViewController: UIViewController {
         trackerCollectionView = collectionView
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         collectionView.register(TrackerCollectionViewCell.self,
                                 forCellWithReuseIdentifier: TrackerCollectionViewCell.identifier)
@@ -157,6 +192,10 @@ class TrackersViewController: UIViewController {
             label.trailingAnchor.constraint(equalTo: trackerCollectionView.trailingAnchor)
         ])
     }
+    
+    private func hideEmptyPlaceholderView(_ flag: Bool) {
+        emptyPlaceholderView.isHidden = flag
+    }
 }
 
 extension TrackersViewController: TrackerTypeViewControllerDelegate {
@@ -187,11 +226,143 @@ extension TrackersViewController: TrackerOptionsMenuViewControllerDelegate {
         let newTrackerList = categories[index].trackers + [newTracker]
         categories[index] = TrackerCategory(title: category,
                                             trackers: newTrackerList)
+        
         trackerCollectionView.reloadData()
         
-//        print("Name:", newTracker.name)
-//        print("Emoji:", newTracker.emoji)
-//        print("Color:", newTracker.color)
-//        print("Schedule:", newTracker.schedule)
+        print("Name:", newTracker.name)
+        print("Emoji:", newTracker.emoji)
+        print("Color:", newTracker.color)
+        print("Schedule:", newTracker.schedule)
+    }
+}
+
+extension TrackersViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return visibleCategories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return visibleCategories[section].trackers.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: TrackerCollectionViewCell.identifier,
+            for: indexPath
+        ) as? TrackerCollectionViewCell
+        guard let cell else { return UICollectionViewCell() }
+        cell.delegate = self
+        
+        let currentSection = indexPath.section
+        let currentRow = indexPath.row
+        
+        let tracker = visibleCategories[currentSection].trackers[currentRow]
+        let completionStatus = completedTrackers.contains { $0.id == tracker.id && $0.date == activeDate}
+        
+        let completedDays = completedTrackers.filter { $0.id == tracker.id }
+        let dayCount = completedDays.count
+        
+        cell.updateContent(tracker: tracker,
+                           completionStatus: completionStatus,
+                           dayCount: dayCount)
+        
+        return cell
+    }
+}
+
+extension TrackersViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let availableSpace = collectionView.frame.width - geometricParams.paddingWidth
+        let cellWidth: CGFloat = availableSpace / CGFloat(geometricParams.cellCount)
+        let cellHeight: CGFloat = 148
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: geometricParams.topInset,
+                            left: geometricParams.leftInset,
+                            bottom: geometricParams.bottomInset,
+                            right: geometricParams.rightInset)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: CategoryHeader.identifier,
+                for: indexPath
+            ) as? CategoryHeader
+            guard let headerView else { return UICollectionReusableView() }
+            
+            let headerText = visibleCategories[indexPath.section].title
+            headerView.setText(headerText)
+            
+            return headerView
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        let indexPath = IndexPath(row: 0, section: section)
+        let headerView = self.collectionView(
+            collectionView,
+            viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
+            at: indexPath
+        )
+        
+        let size = CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height)
+        return headerView.systemLayoutSizeFitting(size,
+                                                  withHorizontalFittingPriority: .required,
+                                                  verticalFittingPriority: .fittingSizeLevel)
+        
+    }
+}
+
+extension TrackersViewController: UICollectionViewDelegate {
+    
+}
+
+extension TrackersViewController: TrackerCollectionViewCellDelegate {
+    func didMarkDayCompleted(for tracker: Tracker, cell: TrackerCollectionViewCell) {
+        let trackerRecord = TrackerRecord(id: tracker.id, date: activeDate)
+        
+        var trackerFound = false
+        for item in completedTrackers {
+            if (item.id == trackerRecord.id) && (item.date == activeDate) {
+                trackerFound = true
+            }
+        }
+        
+        if trackerFound {
+            completedTrackers.remove(trackerRecord)
+            
+            cell.decrementDayCount()
+            cell.changeCompletionStatus(to: false)
+        } else {
+            completedTrackers.insert(trackerRecord)
+            
+            cell.incrementDayCount()
+            cell.changeCompletionStatus(to: true)
+        }
     }
 }

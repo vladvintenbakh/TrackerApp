@@ -7,19 +7,25 @@
 
 import UIKit
 
+protocol TrackerCollectionViewCellDelegate: AnyObject {
+    func didMarkDayCompleted(for tracker: Tracker, cell: TrackerCollectionViewCell)
+}
+
 class TrackerCollectionViewCell: UICollectionViewCell {
     static let identifier = "TrackerCollectionViewCell"
     
     private let selectedEmoji: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let emojiBackgroundView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 68
+        view.backgroundColor = UIColor(named: "YPWhite")?.withAlphaComponent(0.3)
+        view.layer.cornerRadius = 12
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -51,21 +57,34 @@ class TrackerCollectionViewCell: UICollectionViewCell {
     }()
     
     private let markCompletedButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = UIButton()
+        button.tintColor = UIColor(named: "YPWhite")
+        button.setImage(UIImage(named: "plus"), for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.tintColor = .systemYellow
-        button.setImage(UIImage(named: "plus"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(pressedMarkCompletedButton), for: .touchUpInside)
+        
         return button
     }()
+    
+    private var currentTracker: Tracker?
+    private var dayCount = 0 {
+        willSet {
+            numDaysLabel.text = "\(newValue) day(s)"
+        }
+    }
+    
+    weak var delegate: TrackerCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.addSubview(selectedEmoji)
-        contentView.addSubview(emojiBackgroundView)
-        contentView.addSubview(trackerNameLabel)
         contentView.addSubview(topContainerView)
+        contentView.addSubview(emojiBackgroundView)
+        contentView.addSubview(selectedEmoji)
+        contentView.addSubview(trackerNameLabel)
         contentView.addSubview(numDaysLabel)
         contentView.addSubview(markCompletedButton)
         
@@ -74,6 +93,16 @@ class TrackerCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        markCompletedButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        markCompletedButton.layer.opacity = 1
+        
+        currentTracker = nil
+        dayCount = 0
     }
     
     private func setUpConstraints() {
@@ -111,5 +140,41 @@ class TrackerCollectionViewCell: UICollectionViewCell {
             markCompletedButton.widthAnchor.constraint(equalToConstant: 34),
             markCompletedButton.heightAnchor.constraint(equalToConstant: 34)
         ])
+    }
+    
+    func incrementDayCount() {
+        dayCount += 1
+    }
+    
+    func decrementDayCount() {
+        dayCount -= 1
+    }
+    
+    func updateContent(tracker: Tracker, completionStatus: Bool, dayCount: Int) {
+        self.currentTracker = tracker
+        self.dayCount = dayCount
+        
+        updateUI(color: tracker.color, emoji: tracker.emoji, name: tracker.name)
+        changeCompletionStatus(to: completionStatus)
+    }
+    
+    private func updateUI(color: UIColor, emoji: String, name: String) {
+        topContainerView.backgroundColor = color
+        markCompletedButton.backgroundColor = color
+        selectedEmoji.text = emoji
+        trackerNameLabel.text = name
+    }
+    
+    func changeCompletionStatus(to completionStatus: Bool) {
+        let image = completionStatus ? UIImage(systemName: "checkmark") : UIImage(systemName: "plus")
+        let opacity: Float = completionStatus ? 0.3 : 1.0
+        
+        markCompletedButton.setImage(image, for: .normal)
+        markCompletedButton.layer.opacity = opacity
+    }
+    
+    @objc private func pressedMarkCompletedButton() {
+        guard let currentTracker else { return }
+        delegate?.didMarkDayCompleted(for: currentTracker, cell: self)
     }
 }

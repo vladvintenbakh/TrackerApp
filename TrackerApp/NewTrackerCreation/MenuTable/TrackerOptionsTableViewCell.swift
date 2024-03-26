@@ -12,10 +12,10 @@ class TrackerOptionsTableViewCell: UITableViewCell {
     
     private let cellLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Category"
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = UIColor(named: "YPBlack")
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     

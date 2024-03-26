@@ -16,6 +16,9 @@ class ScheduleSelectionViewController: UIViewController {
     private let weekdayTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
+        table.layer.cornerRadius = 16
+        table.layer.masksToBounds = true
+        
         table.translatesAutoresizingMaskIntoConstraints = false
         
         table.register(WeekdayTableViewCell.self,

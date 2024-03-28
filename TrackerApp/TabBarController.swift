@@ -9,6 +9,9 @@ import UIKit
 
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
+        tabBar.layer.borderWidth = 1
+        tabBar.layer.borderColor = UIColor(named: "YPGray")?.cgColor
+        
         let trackersVC = TrackersViewController()
         let navigationVC = UINavigationController(rootViewController: trackersVC)
         let firstVC = navigationVC

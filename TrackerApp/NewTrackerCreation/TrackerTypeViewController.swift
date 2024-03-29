@@ -13,9 +13,53 @@ protocol TrackerTypeViewControllerDelegate: AnyObject {
 
 final class TrackerTypeViewController: UIViewController {
     
-    private var titleLabel: UILabel!
-    private var habitButton: UIButton!
-    private var oneOffEventButton: UIButton!
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Tracker creation"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = UIColor(named: "YPBlack")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var habitButton: UIButton = {
+        let button = UIButton()
+        
+        button.backgroundColor = UIColor(named: "YPBlack")
+        
+        button.setTitle("Habit", for: .normal)
+        button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        
+        button.layer.cornerRadius = 16
+        button.layer.masksToBounds = true
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(habitButtonPressed), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    private lazy var oneOffEventButton: UIButton = {
+        let button = UIButton()
+        
+        button.backgroundColor = UIColor(named: "YPBlack")
+        
+        button.setTitle("One-Off Event", for: .normal)
+        button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        
+        button.layer.cornerRadius = 16
+        button.layer.masksToBounds = true
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(oneOffEventButtonPressed), for: .touchUpInside)
+        
+        return button
+    }()
     
     weak var delegate: TrackerTypeViewControllerDelegate?
     
@@ -23,57 +67,11 @@ final class TrackerTypeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YPWhite")
         
-        setUpTitleLabel()
-        setUpHabitButton()
-        setUpOneOffEventButton()
+        view.addSubview(titleLabel)
+        view.addSubview(habitButton)
+        view.addSubview(oneOffEventButton)
+        
         setUpConstraints()
-    }
-    
-    private func setUpTitleLabel() {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel = label
-        
-        label.text = "Tracker creation"
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = UIColor(named: "YPBlack")
-        
-        view.addSubview(label)
-    }
-    
-    private func setUpHabitButton() {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        habitButton = button
-        
-        button.setTitle("Habit", for: .normal)
-        button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.backgroundColor = UIColor(named: "YPBlack")
-        button.layer.cornerRadius = 16
-        button.layer.masksToBounds = true
-        
-        button.addTarget(self, action: #selector(habitButtonPressed), for: .touchUpInside)
-        
-        view.addSubview(button)
-    }
-    
-    private func setUpOneOffEventButton() {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        oneOffEventButton = button
-        
-        button.setTitle("One-Off Event", for: .normal)
-        button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.backgroundColor = UIColor(named: "YPBlack")
-        button.layer.cornerRadius = 16
-        button.layer.masksToBounds = true
-        
-        button.addTarget(self, action: #selector(oneOffEventButtonPressed), for: .touchUpInside)
-        
-        view.addSubview(button)
     }
     
     private func setUpConstraints() {

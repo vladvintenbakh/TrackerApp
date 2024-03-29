@@ -93,12 +93,24 @@ class TrackersViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
-        
         datePicker.maximumDate = Date()
+        datePicker.locale = Locale(identifier: "ru_RU")
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePicker)
+        let datePickerContainer = UIView()
+        datePickerContainer.addSubview(datePicker)
+        
+        NSLayoutConstraint.activate([
+            datePicker.topAnchor.constraint(equalTo: datePickerContainer.topAnchor),
+            datePicker.bottomAnchor.constraint(equalTo: datePickerContainer.bottomAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: datePickerContainer.leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: datePickerContainer.trailingAnchor),
+            datePicker.widthAnchor.constraint(equalToConstant: 120)
+        ])
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePickerContainer)
     }
     
     @objc func dismissKeyboard() {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrackerCreationHelper {
+final class TrackerCreationHelper {
     
     func createPageScrollView(view: UIView) -> UIScrollView {
         let scrollView = UIScrollView()

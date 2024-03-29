@@ -11,7 +11,7 @@ protocol ScheduleSelectionViewControllerDelegate: AnyObject {
     func didSelectWeekdays(_ weekdays: [Weekday])
 }
 
-class ScheduleSelectionViewController: UIViewController {
+final class ScheduleSelectionViewController: UIViewController {
     
     private let weekdayTableView: UITableView = {
         let table = UITableView()

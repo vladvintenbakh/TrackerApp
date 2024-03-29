@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         tabBar.layer.borderWidth = 1
         tabBar.layer.borderColor = UIColor(named: "YPGray")?.cgColor

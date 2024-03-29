@@ -11,7 +11,7 @@ protocol WeekdayTableViewCellDelegate: AnyObject {
     func didToggleSwitch(for day: Weekday, to flag: Bool)
 }
 
-class WeekdayTableViewCell: UITableViewCell {
+final class WeekdayTableViewCell: UITableViewCell {
     static let identifier = "WeekdaysTableViewCell"
     
     private let customSeparatorCell = CustomSeparatorCell()

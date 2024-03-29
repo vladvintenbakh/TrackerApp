@@ -11,7 +11,7 @@ protocol TrackerTypeViewControllerDelegate: AnyObject {
     func didPickTrackerType(_ type: String)
 }
 
-class TrackerTypeViewController: UIViewController {
+final class TrackerTypeViewController: UIViewController {
     
     private var titleLabel: UILabel!
     private var habitButton: UIButton!

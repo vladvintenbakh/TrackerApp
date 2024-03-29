@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrackersViewController: UIViewController {
+final class TrackersViewController: UIViewController {
     
     private var titleLabel: UILabel!
     private var trackerSearchBar: UISearchBar!

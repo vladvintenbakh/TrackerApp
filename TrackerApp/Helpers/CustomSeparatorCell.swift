@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomSeparatorCell: UIView {
+final class CustomSeparatorCell: UIView {
     private let separator: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "YPGray")

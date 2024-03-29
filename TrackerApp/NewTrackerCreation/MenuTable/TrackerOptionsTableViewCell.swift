@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrackerOptionsTableViewCell: UITableViewCell {
+final class TrackerOptionsTableViewCell: UITableViewCell {
     static let identifier = "TrackerOptionsTableViewCell"
     
     private let customSeparatorCell = CustomSeparatorCell()

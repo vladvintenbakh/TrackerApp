@@ -12,7 +12,7 @@ protocol TrackerOptionsMenuViewControllerDelegate: AnyObject {
     func didPressCreateButton(category: String, newTracker: Tracker)
 }
 
-class TrackerOptionsMenuViewController: UIViewController {
+final class TrackerOptionsMenuViewController: UIViewController {
     private var pageScrollView: UIScrollView!
     private var mainContentArea: UIView!
     private var titleLabel: UILabel!

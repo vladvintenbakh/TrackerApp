@@ -11,7 +11,7 @@ protocol TrackerCollectionViewCellDelegate: AnyObject {
     func didMarkDayCompleted(for tracker: Tracker, cell: TrackerCollectionViewCell)
 }
 
-class TrackerCollectionViewCell: UICollectionViewCell {
+final class TrackerCollectionViewCell: UICollectionViewCell {
     static let identifier = "TrackerCollectionViewCell"
     
     private let selectedEmoji: UILabel = {

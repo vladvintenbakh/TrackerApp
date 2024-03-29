@@ -29,7 +29,7 @@ final class TrackerOptionsTableViewCell: UITableViewCell {
         return label
     }()
     
-    let actionImageView: UIImageView = {
+    private let actionImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "ChevronIcon")

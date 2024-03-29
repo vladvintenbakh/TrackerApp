@@ -26,7 +26,7 @@ class WeekdayTableViewCell: UITableViewCell {
     
     private lazy var onOffSwitch: UISwitch = {
         let switchView = UISwitch()
-        switchView.onTintColor = .blue
+        switchView.onTintColor = UIColor(named: "YPBlue")
         switchView.translatesAutoresizingMaskIntoConstraints = false
         
         switchView.addTarget(self, action: #selector(changedSwitchValue), for: .valueChanged)

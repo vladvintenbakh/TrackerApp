@@ -104,14 +104,20 @@ extension ScheduleSelectionViewController: UITableViewDataSource {
             withIdentifier: WeekdayTableViewCell.identifier,
             for: indexPath
         ) as? WeekdayTableViewCell
-        guard let cell else {
-            return UITableViewCell()
-        }
+        guard let cell else { return UITableViewCell() }
         
         let currentRow = indexPath.row
         let currentWeekday = Weekday.allCases[currentRow]
         let flag = selectedWeekdaySet.contains(currentWeekday)
         cell.setWeekday(currentWeekday, to: flag)
+        
+        var cellType: String = "Middle"
+        if currentRow == 0 {
+            cellType = "First"
+        } else if currentRow == Weekday.allCases.count - 1 {
+            cellType = "Last"
+        }
+        cell.configCustomCell(cellType: cellType)
         
         cell.delegate = self
         return cell

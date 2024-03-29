@@ -334,6 +334,7 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = optionsTableView.dequeueReusableCell(
             withIdentifier: TrackerOptionsTableViewCell.identifier,
             for: indexPath
@@ -341,14 +342,22 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
         
         let currentRow = indexPath.row
         
+        var cellType: String = "Middle"
+        
         if currentRow == 0 {
             if category != nil { cell.setValue(category!) }
+            cellType = "First"
         }
         
         if currentRow == 1 {
             cell.setLabelText("Schedule")
             if scheduleValueText != nil { cell.setValue(scheduleValueText!) }
+            cellType = "Last"
         }
+        
+        if trackerObject.schedule == nil { cellType = "None" }
+        
+        cell.configCustomCell(cellType: cellType)
         
         return cell
     }

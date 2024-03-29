@@ -10,6 +10,8 @@ import UIKit
 class TrackerOptionsTableViewCell: UITableViewCell {
     static let identifier = "TrackerOptionsTableViewCell"
     
+    private let customSeparatorCell = CustomSeparatorCell()
+    
     private let cellLabel: UILabel = {
         let label = UILabel()
         label.text = "Category"
@@ -58,18 +60,25 @@ class TrackerOptionsTableViewCell: UITableViewCell {
     private func setUpViews() {
         labelValueStack.addArrangedSubview(cellLabel)
         labelValueStack.addArrangedSubview(selectedValueLabel)
+        
+        contentView.addSubview(customSeparatorCell)
         contentView.addSubview(labelValueStack)
         contentView.addSubview(actionImageView)
         
         NSLayoutConstraint.activate([
-            labelValueStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                     constant: 16),
-            labelValueStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                      constant: -56),
-            labelValueStack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            customSeparatorCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            customSeparatorCell.topAnchor.constraint(equalTo: contentView.topAnchor),
+            customSeparatorCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            customSeparatorCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            actionImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            actionImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+            labelValueStack.leadingAnchor.constraint(equalTo: customSeparatorCell.leadingAnchor,
+                                                     constant: 16),
+            labelValueStack.trailingAnchor.constraint(equalTo: customSeparatorCell.trailingAnchor,
+                                                      constant: -56),
+            labelValueStack.centerYAnchor.constraint(equalTo: customSeparatorCell.centerYAnchor),
+            
+            actionImageView.centerYAnchor.constraint(equalTo: customSeparatorCell.centerYAnchor),
+            actionImageView.trailingAnchor.constraint(equalTo: customSeparatorCell.trailingAnchor,
                                                       constant: -16),
             actionImageView.widthAnchor.constraint(equalToConstant: 24),
             actionImageView.heightAnchor.constraint(equalToConstant: 24)
@@ -82,5 +91,18 @@ class TrackerOptionsTableViewCell: UITableViewCell {
     
     func setValue(_ text: String) {
         selectedValueLabel.text = text
+    }
+    
+    func configCustomCell(cellType: String) {
+        switch cellType {
+        case "First":
+            customSeparatorCell.setAsFirstCell()
+        case "Middle":
+            customSeparatorCell.setAsMiddleCell()
+        case "Last":
+            customSeparatorCell.setAsLastCell()
+        default:
+            return
+        }
     }
 }

@@ -14,6 +14,8 @@ protocol WeekdayTableViewCellDelegate: AnyObject {
 class WeekdayTableViewCell: UITableViewCell {
     static let identifier = "WeekdaysTableViewCell"
     
+    private let customSeparatorCell = CustomSeparatorCell()
+    
     private let dayLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -38,10 +40,9 @@ class WeekdayTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.backgroundColor = UIColor(named: "TextFieldGray")
-        
         selectionStyle = .none
         
+        contentView.addSubview(customSeparatorCell)
         contentView.addSubview(dayLabel)
         contentView.addSubview(onOffSwitch)
         
@@ -54,11 +55,16 @@ class WeekdayTableViewCell: UITableViewCell {
     
     func setUpConstraints() {
         NSLayoutConstraint.activate([
-            dayLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            dayLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -83),
-            dayLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            customSeparatorCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            customSeparatorCell.topAnchor.constraint(equalTo: contentView.topAnchor),
+            customSeparatorCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            customSeparatorCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            onOffSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            dayLabel.leadingAnchor.constraint(equalTo: customSeparatorCell.leadingAnchor, constant: 16),
+            dayLabel.trailingAnchor.constraint(equalTo: customSeparatorCell.trailingAnchor, constant: -83),
+            dayLabel.centerYAnchor.constraint(equalTo: customSeparatorCell.centerYAnchor),
+            
+            onOffSwitch.trailingAnchor.constraint(equalTo: customSeparatorCell.trailingAnchor, constant: -16),
             onOffSwitch.centerYAnchor.constraint(equalTo: dayLabel.centerYAnchor)
         ])
     }
@@ -68,6 +74,19 @@ class WeekdayTableViewCell: UITableViewCell {
         onOffSwitch.isOn = flag
         
         self.weekday = weekday
+    }
+    
+    func configCustomCell(cellType: String) {
+        switch cellType {
+        case "First":
+            customSeparatorCell.setAsFirstCell()
+        case "Middle":
+            customSeparatorCell.setAsMiddleCell()
+        case "Last":
+            customSeparatorCell.setAsLastCell()
+        default:
+            return
+        }
     }
     
     @objc private func changedSwitchValue(_ sender: UISwitch) {

@@ -31,5 +31,3 @@ let colorOptions: [UIColor] = [
     UIColor(red: 141/255, green: 114/255, blue: 230/255, alpha: 1),
     UIColor(red: 47/255, green: 208/255, blue: 88/255, alpha: 1)
 ]
-
-let cellHeight: CGFloat = 52

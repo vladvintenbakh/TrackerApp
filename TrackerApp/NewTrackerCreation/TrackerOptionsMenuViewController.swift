@@ -26,6 +26,7 @@ final class TrackerOptionsMenuViewController: UIViewController {
     
     private let trackerCreationHelper = TrackerCreationHelper()
     private let trackerType: String
+    private let cellHeight: CGFloat = 52
 
     private var trackerObject: Tracker.TrackerObject {
         didSet {

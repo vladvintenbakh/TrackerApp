@@ -95,6 +95,13 @@ class TrackerOptionsMenuViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YPWhite")
         
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+        
         setUpScrollView()
         
         setUpMainContentArea()
@@ -264,6 +271,10 @@ class TrackerOptionsMenuViewController: UIViewController {
         let colorCount = CGFloat(colorOptions.count)
         let contentHeight = colorCount / CGFloat(geometricParams.cellCount) * cellHeight
         return contentHeight + geometricParams.topInset + geometricParams.bottomInset + 18
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc private func changedTextFieldInput(_ sender: UITextField) {

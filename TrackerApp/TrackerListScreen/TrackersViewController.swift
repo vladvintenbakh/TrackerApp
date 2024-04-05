@@ -15,7 +15,8 @@ final class TrackersViewController: UIViewController {
     private var categories: [TrackerCategory] = TrackerCategory.defaultCategories
     
     private var completedTrackers: Set<TrackerRecord> = []
-    private var activeDate = Date()
+    
+    private var activeDate = Date.safeDate(Date())!
     
     private var trackerCollectionView: UICollectionView!
     private var emptyPlaceholderView: UIView!
@@ -124,7 +125,7 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
-        activeDate = sender.date
+        activeDate = Date.safeDate(sender.date)!
         trackerCollectionView.reloadData()
     }
     

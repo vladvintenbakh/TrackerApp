@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		602297372BBFFDE9006EBB4D /* Date+safeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602297362BBFFDE9006EBB4D /* Date+safeDate.swift */; };
 		602A10972B9D6B6300F65D7F /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A10962B9D6B6300F65D7F /* StatsViewController.swift */; };
 		602A10992B9D6BF300F65D7F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A10982B9D6BF300F65D7F /* TabBarController.swift */; };
 		602C41AB2BA7EC9B0033713F /* TrackerTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41AA2BA7EC9B0033713F /* TrackerTypeViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		602297362BBFFDE9006EBB4D /* Date+safeDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+safeDate.swift"; sourceTree = "<group>"; };
 		602A10962B9D6B6300F65D7F /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		602A10982B9D6BF300F65D7F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		602C41AA2BA7EC9B0033713F /* TrackerTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerTypeViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */,
 				603BAC942BAAD57F006F81D4 /* GeometricParams.swift */,
 				60EC08772BB5377900743037 /* CustomSeparatorCell.swift */,
+				602297362BBFFDE9006EBB4D /* Date+safeDate.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				60EC08782BB5377900743037 /* CustomSeparatorCell.swift in Sources */,
 				602C41AD2BA7F58A0033713F /* CollectionConstants.swift in Sources */,
 				60FB4AA82B9AEF3F0058AED1 /* TrackersViewController.swift in Sources */,
+				602297372BBFFDE9006EBB4D /* Date+safeDate.swift in Sources */,
 				60526A852BA3F4EC00B4DE14 /* TrackerCategory.swift in Sources */,
 				602C41B22BA8170F0033713F /* TrackerCreationHelper.swift in Sources */,
 				602C41B42BA823250033713F /* TrackerOptionsTableViewCell.swift in Sources */,

@@ -9,5 +9,6 @@ import Foundation
 
 struct TrackerRecord: Hashable {
     let id: UUID
+    let trackerID: UUID
     let date: Date
 }

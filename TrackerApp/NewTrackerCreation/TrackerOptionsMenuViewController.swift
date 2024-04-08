@@ -9,7 +9,7 @@ import UIKit
 
 protocol TrackerOptionsMenuViewControllerDelegate: AnyObject {
     func didPressCancelButton()
-    func didPressCreateButton(category: String, newTracker: Tracker)
+    func didPressCreateButton(category: TrackerCategory, newTracker: Tracker)
 }
 
 final class TrackerOptionsMenuViewController: UIViewController {
@@ -25,6 +25,7 @@ final class TrackerOptionsMenuViewController: UIViewController {
     private var actionButtonStackView: UIStackView!
     
     private let trackerCreationHelper = TrackerCreationHelper()
+    private let trackerCategoryStore = TrackerCategoryStore()
     private let trackerType: String
     private let cellHeight: CGFloat = 52
 
@@ -34,7 +35,7 @@ final class TrackerOptionsMenuViewController: UIViewController {
         }
     }
     
-    private var category: String? = TrackerCategory.pickDefaultCategory().title {
+    private lazy var category: TrackerCategory? = trackerCategoryStore.categories.randomElement() {
         didSet {
             validateFormFields()
         }
@@ -297,7 +298,8 @@ final class TrackerOptionsMenuViewController: UIViewController {
                               name: trackerObject.name,
                               emoji: emoji,
                               color: color,
-                              schedule: trackerObject.schedule)
+                              schedule: trackerObject.schedule,
+                              daysCompleted: 0)
         
         delegate?.didPressCreateButton(category: category, newTracker: tracker)
     }
@@ -357,7 +359,9 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
         var cellType: String = "Middle"
         
         if currentRow == 0 {
-            if category != nil { cell.setValue(category!) }
+            
+            if category != nil { cell.setValue(category!.title) }
+            
             cellType = "First"
         }
         

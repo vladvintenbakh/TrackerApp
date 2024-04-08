@@ -8,17 +8,6 @@
 import Foundation
 
 struct TrackerCategory {
+    let id: UUID
     let title: String
-    let trackers: [Tracker]
-    
-    static let defaultCategories: [TrackerCategory] = [
-        TrackerCategory(title: "Default 1", trackers: []),
-        TrackerCategory(title: "Default 2", trackers: []),
-        TrackerCategory(title: "Default 3", trackers: [])
-    ]
-    
-    static func pickDefaultCategory() -> TrackerCategory {
-        let category = defaultCategories.randomElement()
-        return category!
-    }
 }

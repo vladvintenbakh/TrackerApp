@@ -36,7 +36,6 @@ final class TrackerStore: NSObject {
     
     private let context: NSManagedObjectContext
     private let trackerCategoryStore = TrackerCategoryStore()
-    private let uiColorMarshalling = UIColorMarshalling()
     private let dateFormatter = DateFormatter()
     
     private lazy var fetchedResultsController: NSFetchedResultsController<TrackerCoreData> = {
@@ -103,7 +102,7 @@ final class TrackerStore: NSObject {
         return Tracker(id: id,
                        name: name,
                        emoji: emoji,
-                       color: uiColorMarshalling.color(from: colorHex),
+                       color: UIColorMarshalling.color(from: colorHex),
                        schedule: Weekday.decodeWeekdays(from: trackerCoreData.schedule),
                        daysCompleted: daysCompleted)
     }
@@ -152,7 +151,7 @@ extension TrackerStore: TrackerStoreProtocol {
         trackerCoreData.trackerID = tracker.id.uuidString
         trackerCoreData.name = tracker.name
         trackerCoreData.emoji = tracker.emoji
-        trackerCoreData.colorHex = uiColorMarshalling.hexString(from: tracker.color)
+        trackerCoreData.colorHex = UIColorMarshalling.hexString(from: tracker.color)
         trackerCoreData.schedule = Weekday.encodeWeekdays(tracker.schedule)
         
         trackerCoreData.creationDate = Date()

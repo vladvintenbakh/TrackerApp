@@ -26,6 +26,8 @@
 		60526A832BA3F4E300B4DE14 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60526A822BA3F4E300B4DE14 /* Tracker.swift */; };
 		60526A852BA3F4EC00B4DE14 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60526A842BA3F4EC00B4DE14 /* TrackerCategory.swift */; };
 		60526A872BA3F4F300B4DE14 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60526A862BA3F4F300B4DE14 /* TrackerRecord.swift */; };
+		606381712BC69BC70008517C /* SinglePageTemplateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606381702BC69BC70008517C /* SinglePageTemplateVC.swift */; };
+		606381732BC6A0FB0008517C /* OnboardingPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606381722BC6A0FB0008517C /* OnboardingPageVC.swift */; };
 		608F86372BAFCB07002AC724 /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608F86362BAFCB07002AC724 /* CategoryHeader.swift */; };
 		608F86402BB0182B002AC724 /* ScheduleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608F863F2BB0182B002AC724 /* ScheduleSelectionViewController.swift */; };
 		608F86422BB01B3D002AC724 /* WeekdayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608F86412BB01B3D002AC724 /* WeekdayTableViewCell.swift */; };
@@ -60,6 +62,8 @@
 		60526A822BA3F4E300B4DE14 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		60526A842BA3F4EC00B4DE14 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		60526A862BA3F4F300B4DE14 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
+		606381702BC69BC70008517C /* SinglePageTemplateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageTemplateVC.swift; sourceTree = "<group>"; };
+		606381722BC6A0FB0008517C /* OnboardingPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageVC.swift; sourceTree = "<group>"; };
 		608F86362BAFCB07002AC724 /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
 		608F863F2BB0182B002AC724 /* ScheduleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSelectionViewController.swift; sourceTree = "<group>"; };
 		608F86412BB01B3D002AC724 /* WeekdayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayTableViewCell.swift; sourceTree = "<group>"; };
@@ -126,6 +130,15 @@
 				602A10962B9D6B6300F65D7F /* StatsViewController.swift */,
 			);
 			path = StatsScreen;
+			sourceTree = "<group>";
+		};
+		6063816F2BC69BB50008517C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				606381702BC69BC70008517C /* SinglePageTemplateVC.swift */,
+				606381722BC6A0FB0008517C /* OnboardingPageVC.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		608F86382BAFD55A002AC724 /* ScheduleSelection */ = {
@@ -196,6 +209,7 @@
 		60FB4AA22B9AEF3F0058AED1 /* TrackerApp */ = {
 			isa = PBXGroup;
 			children = (
+				6063816F2BC69BB50008517C /* Onboarding */,
 				6022973A2BC004FF006EBB4D /* CoreDataStore */,
 				60A31AEA2BAD71A300B95A5F /* TrackerListScreen */,
 				60A31AE72BAD708C00B95A5F /* NewTrackerCreation */,
@@ -298,6 +312,7 @@
 				60FB4AA42B9AEF3F0058AED1 /* AppDelegate.swift in Sources */,
 				6022973C2BC0050B006EBB4D /* TrackerStore.swift in Sources */,
 				603BAC932BAACCF2006F81D4 /* CollectionHeader.swift in Sources */,
+				606381732BC6A0FB0008517C /* OnboardingPageVC.swift in Sources */,
 				608F86422BB01B3D002AC724 /* WeekdayTableViewCell.swift in Sources */,
 				603BAC8F2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift in Sources */,
 				602A10992B9D6BF300F65D7F /* TabBarController.swift in Sources */,
@@ -306,6 +321,7 @@
 				60526A872BA3F4F300B4DE14 /* TrackerRecord.swift in Sources */,
 				602A10972B9D6B6300F65D7F /* StatsViewController.swift in Sources */,
 				6022973E2BC0052C006EBB4D /* TrackerCategoryStore.swift in Sources */,
+				606381712BC69BC70008517C /* SinglePageTemplateVC.swift in Sources */,
 				608F86372BAFCB07002AC724 /* CategoryHeader.swift in Sources */,
 				602297392BC0032C006EBB4D /* UIColorMarshalling.swift in Sources */,
 				602C41AF2BA815E20033713F /* TrackerOptionsMenuViewController.swift in Sources */,

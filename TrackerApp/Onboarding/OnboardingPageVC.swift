@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol OnboardingDelegate: AnyObject {
+    func didFinishOnboarding()
+}
+
 final class OnboardingPageVC: UIPageViewController {
     private lazy var pages: [UIViewController] = {
         let firstPage = SinglePageTemplateVC(backgroundImage: .firstPage, infoLabelText: .firstPage)
@@ -43,6 +47,8 @@ final class OnboardingPageVC: UIPageViewController {
         return pageControl
     }()
     
+    weak var onboardingDelegate: OnboardingDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,7 +81,7 @@ final class OnboardingPageVC: UIPageViewController {
     }
     
     @objc private func pressedProceedButton() {
-        
+        onboardingDelegate?.didFinishOnboarding()
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		600523F82BCBA24B00C945F5 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600523F72BCBA24B00C945F5 /* CategoriesTableViewCell.swift */; };
 		602297372BBFFDE9006EBB4D /* Date+safeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602297362BBFFDE9006EBB4D /* Date+safeDate.swift */; };
 		602297392BC0032C006EBB4D /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602297382BC0032C006EBB4D /* UIColorMarshalling.swift */; };
 		6022973C2BC0050B006EBB4D /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6022973B2BC0050B006EBB4D /* TrackerStore.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		600523F72BCBA24B00C945F5 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		602297362BBFFDE9006EBB4D /* Date+safeDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+safeDate.swift"; sourceTree = "<group>"; };
 		602297382BC0032C006EBB4D /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
 		6022973B2BC0050B006EBB4D /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				6086FC972BCB97B90099E281 /* CategoryCreationVC.swift */,
 				6086FC992BCB9C080099E281 /* CategorySelectionVC.swift */,
+				600523F72BCBA24B00C945F5 /* CategoriesTableViewCell.swift */,
 			);
 			path = CategorySelection;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				606381732BC6A0FB0008517C /* OnboardingPageVC.swift in Sources */,
 				608F86422BB01B3D002AC724 /* WeekdayTableViewCell.swift in Sources */,
 				603BAC8F2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift in Sources */,
+				600523F82BCBA24B00C945F5 /* CategoriesTableViewCell.swift in Sources */,
 				602A10992B9D6BF300F65D7F /* TabBarController.swift in Sources */,
 				608F86442BB01CEA002AC724 /* Weekday.swift in Sources */,
 				60A89DE52BC92033002DC16A /* EntryVC.swift in Sources */,

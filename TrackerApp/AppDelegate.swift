@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         window = UIWindow()
-        window?.rootViewController = EntryVC()
+        window?.rootViewController = CategorySelectionVC()
         window?.makeKeyAndVisible()
         return true
     }

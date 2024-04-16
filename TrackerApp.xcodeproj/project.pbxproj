@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		600523F82BCBA24B00C945F5 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600523F72BCBA24B00C945F5 /* CategoriesTableViewCell.swift */; };
+		600523FE2BCBD94E00C945F5 /* CategorySelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600523FD2BCBD94E00C945F5 /* CategorySelectionViewModel.swift */; };
 		602297372BBFFDE9006EBB4D /* Date+safeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602297362BBFFDE9006EBB4D /* Date+safeDate.swift */; };
 		602297392BC0032C006EBB4D /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602297382BC0032C006EBB4D /* UIColorMarshalling.swift */; };
 		6022973C2BC0050B006EBB4D /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6022973B2BC0050B006EBB4D /* TrackerStore.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		600523F72BCBA24B00C945F5 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
+		600523FD2BCBD94E00C945F5 /* CategorySelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewModel.swift; sourceTree = "<group>"; };
 		602297362BBFFDE9006EBB4D /* Date+safeDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+safeDate.swift"; sourceTree = "<group>"; };
 		602297382BC0032C006EBB4D /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
 		6022973B2BC0050B006EBB4D /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				6086FC972BCB97B90099E281 /* CategoryCreationVC.swift */,
 				6086FC992BCB9C080099E281 /* CategorySelectionVC.swift */,
 				600523F72BCBA24B00C945F5 /* CategoriesTableViewCell.swift */,
+				600523FD2BCBD94E00C945F5 /* CategorySelectionViewModel.swift */,
 			);
 			path = CategorySelection;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				606381712BC69BC70008517C /* SinglePageTemplateVC.swift in Sources */,
 				608F86372BAFCB07002AC724 /* CategoryHeader.swift in Sources */,
 				602297392BC0032C006EBB4D /* UIColorMarshalling.swift in Sources */,
+				600523FE2BCBD94E00C945F5 /* CategorySelectionViewModel.swift in Sources */,
 				602C41AF2BA815E20033713F /* TrackerOptionsMenuViewController.swift in Sources */,
 				60FB4AA62B9AEF3F0058AED1 /* SceneDelegate.swift in Sources */,
 				603BAC952BAAD57F006F81D4 /* GeometricParams.swift in Sources */,

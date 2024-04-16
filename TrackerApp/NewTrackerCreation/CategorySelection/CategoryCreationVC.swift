@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol CategoryCreationVCDelegate: AnyObject {
+    func didCreateCategory(categoryObject: TrackerCategory.CategoryObject)
+}
+
 final class CategoryCreationVC: UIViewController {
+    
+    weak var delegate: CategoryCreationVCDelegate?
+    
     private lazy var categoryNameTextField: UITextField = {
         let textField = UITextField()
         
@@ -22,6 +29,8 @@ final class CategoryCreationVC: UIViewController {
                                                height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        
+        textField.addTarget(self, action: #selector(editedTextField), for: .editingChanged)
         
         return textField
     }()
@@ -44,8 +53,40 @@ final class CategoryCreationVC: UIViewController {
         return button
     }()
     
+    private var categoryObject: TrackerCategory.CategoryObject
+    
+    private var isDoneButtonActive = false {
+        willSet {
+            toggleDoneButton(to: newValue)
+        }
+    }
+    
+    init(categoryObject: TrackerCategory.CategoryObject) {
+        self.categoryObject = categoryObject
+        super.init(nibName: nil, bundle: nil)
+        updateUI()
+    }
+    
+    init() {
+        let emptyCategory = TrackerCategory.CategoryObject(id: UUID(), title: "")
+        self.categoryObject = emptyCategory
+        super.init(nibName: nil, bundle: nil)
+        updateUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
         
         navigationItem.title = "New category"
         view.backgroundColor = UIColor(named: "YPWhite")
@@ -74,6 +115,31 @@ final class CategoryCreationVC: UIViewController {
     }
     
     @objc private func doneButtonPressed() {
+        delegate?.didCreateCategory(categoryObject: categoryObject)
+    }
+    
+    @objc private func editedTextField(_ sender: UITextField) {
+        guard let title = sender.text else {
+            isDoneButtonActive = false
+            return
+        }
         
+        isDoneButtonActive = !title.isEmpty
+        if isDoneButtonActive {
+            categoryObject.title = title
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    private func updateUI() {
+        categoryNameTextField.text = categoryObject.title
+    }
+    
+    private func toggleDoneButton(to flag: Bool) {
+        doneButton.isEnabled = flag
+        doneButton.backgroundColor = flag ? UIColor(named: "YPBlack") : UIColor(named: "YPGray")
     }
 }

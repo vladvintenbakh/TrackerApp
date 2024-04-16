@@ -222,6 +222,7 @@ extension TrackersViewController: TrackerTypeViewControllerDelegate {
 extension TrackersViewController: TrackerOptionsMenuViewControllerDelegate {
     func didPressCancelButton() {
         dismiss(animated: true)
+        trackerCollectionView.reloadData()
     }
     
     func didPressCreateButton(category: TrackerCategory, newTracker: Tracker) {

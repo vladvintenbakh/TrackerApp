@@ -29,7 +29,7 @@ final class CategoriesTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         
-        let views = [categoryNameLabel, checkMarkImageView]
+        let views = [customSeparatorCell, categoryNameLabel, checkMarkImageView]
         views.forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(item)

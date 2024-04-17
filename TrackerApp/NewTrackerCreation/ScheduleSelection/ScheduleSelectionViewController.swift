@@ -111,7 +111,7 @@ extension ScheduleSelectionViewController: UITableViewDataSource {
         let flag = selectedWeekdaySet.contains(currentWeekday)
         cell.setWeekday(currentWeekday, to: flag)
         
-        var cellType: String = "Middle"
+        var cellType = "Middle"
         if currentRow == 0 {
             cellType = "First"
         } else if currentRow == Weekday.allCases.count - 1 {

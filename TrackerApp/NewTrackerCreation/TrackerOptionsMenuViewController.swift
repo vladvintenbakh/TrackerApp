@@ -35,7 +35,7 @@ final class TrackerOptionsMenuViewController: UIViewController {
         }
     }
     
-    private lazy var category: TrackerCategory? = trackerCategoryStore.categories.randomElement() {
+    private lazy var category: TrackerCategory? = nil {
         didSet {
             validateFormFields()
         }
@@ -386,6 +386,15 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
 extension TrackerOptionsMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentRow = indexPath.row
+        
+        if currentRow == 0 {
+            let categorySelectionVC = CategorySelectionVC(pickedCategory: category)
+            categorySelectionVC.delegate = self
+            
+            let navigationVC = UINavigationController(rootViewController: categorySelectionVC)
+            present(navigationVC, animated: true)
+        }
+        
         if currentRow == 1 {
             let schedule = trackerObject.schedule
             guard let schedule else { return }
@@ -557,5 +566,14 @@ extension TrackerOptionsMenuViewController: UICollectionViewDelegate {
             
             cell.contentView.layer.borderWidth = 0
         }
+    }
+}
+
+extension TrackerOptionsMenuViewController: CategorySelectionVCDelegate {
+    func didFinishCategorySelection(category: TrackerCategory) {
+        dismiss(animated: true)
+        
+        self.category = category
+        optionsTableView.reloadData()
     }
 }

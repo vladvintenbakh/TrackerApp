@@ -38,6 +38,7 @@
 		608F86442BB01CEA002AC724 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608F86432BB01CEA002AC724 /* Weekday.swift */; };
 		60A31AEC2BAD726C00B95A5F /* TrackerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A31AEB2BAD726C00B95A5F /* TrackerCollectionViewCell.swift */; };
 		60A89DE52BC92033002DC16A /* EntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A89DE42BC92033002DC16A /* EntryVC.swift */; };
+		60A8CE9D2BD4BDC000496A1B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 60A8CE9C2BD4BDC000496A1B /* Localizable.stringsdict */; };
 		60EC08782BB5377900743037 /* CustomSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC08772BB5377900743037 /* CustomSeparatorCell.swift */; };
 		60FB4AA42B9AEF3F0058AED1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FB4AA32B9AEF3F0058AED1 /* AppDelegate.swift */; };
 		60FB4AA62B9AEF3F0058AED1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FB4AA52B9AEF3F0058AED1 /* SceneDelegate.swift */; };
@@ -79,6 +80,7 @@
 		608F86432BB01CEA002AC724 /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		60A31AEB2BAD726C00B95A5F /* TrackerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCell.swift; sourceTree = "<group>"; };
 		60A89DE42BC92033002DC16A /* EntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryVC.swift; sourceTree = "<group>"; };
+		60A8CE9C2BD4BDC000496A1B /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		60EC08772BB5377900743037 /* CustomSeparatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSeparatorCell.swift; sourceTree = "<group>"; };
 		60FB4AA02B9AEF3F0058AED1 /* TrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60FB4AA32B9AEF3F0058AED1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -212,6 +214,14 @@
 			path = TrackerListScreen;
 			sourceTree = "<group>";
 		};
+		60A8CE9B2BD4BD6D00496A1B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				60A8CE9C2BD4BDC000496A1B /* Localizable.stringsdict */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		60FB4A972B9AEF3F0058AED1 = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +241,7 @@
 		60FB4AA22B9AEF3F0058AED1 /* TrackerApp */ = {
 			isa = PBXGroup;
 			children = (
+				60A8CE9B2BD4BD6D00496A1B /* Resources */,
 				6063816F2BC69BB50008517C /* Onboarding */,
 				6022973A2BC004FF006EBB4D /* CoreDataStore */,
 				60A31AEA2BAD71A300B95A5F /* TrackerListScreen */,
@@ -311,6 +322,7 @@
 			files = (
 				60FB4AB32B9AEF400058AED1 /* LaunchScreen.storyboard in Resources */,
 				60FB4AB02B9AEF400058AED1 /* Assets.xcassets in Resources */,
+				60A8CE9D2BD4BDC000496A1B /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

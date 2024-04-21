@@ -22,7 +22,7 @@ final class CategorySelectionVC: UIViewController {
     
     private let placeholderLabel: UILabel = {
         let label = UILabel()
-        label.text = "Group habits/events into categories"
+        label.text = NSLocalizedString("categories.emptyPlaceholder", comment: "")
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = UIColor(named: "YPBlack")
         label.textAlignment = .center
@@ -39,7 +39,8 @@ final class CategorySelectionVC: UIViewController {
         
         button.backgroundColor = UIColor(named: "YPBlack")
         
-        button.setTitle("Add a new category", for: .normal)
+        let buttonTitle = NSLocalizedString("categories.addCategoryButton", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
         button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         
@@ -78,7 +79,7 @@ final class CategorySelectionVC: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "YPWhite")
-        navigationItem.title = "Category"
+        navigationItem.title = NSLocalizedString("shared.schedule", comment: "")
         
         let placeholderSubviews = [placeholderImageView, placeholderLabel]
         placeholderSubviews.forEach { item in
@@ -200,13 +201,19 @@ extension CategorySelectionVC: UITableViewDelegate {
         let currentRow = indexPath.row
         let category = viewModel.categories[currentRow]
         
-        let editAction = UIAction(title: "Edit", handler: { [weak self] _ in
+        let editActionTitle = NSLocalizedString("categories.editAction", comment: "")
+        let editAction = UIAction(title: editActionTitle, handler: { [weak self] _ in
             self?.contextMenuEdit(item: category)
         })
         
-        let deleteAction = UIAction(title: "Delete", attributes: .destructive, handler: { [weak self] _ in
-            self?.contextMenuDelete(item: category)
-        })
+        let deleteActionTitle = NSLocalizedString("categories.deleteAction", comment: "")
+        let deleteAction = UIAction(
+            title: deleteActionTitle,
+            attributes: .destructive,
+            handler: { [weak self] _ in
+                self?.contextMenuDelete(item: category)
+            }
+        )
         
         return UIContextMenuConfiguration(actionProvider: { _ in UIMenu(children: [editAction, deleteAction]) })
     }
@@ -222,16 +229,24 @@ extension CategorySelectionVC: UITableViewDelegate {
     }
     
     private func contextMenuDelete(item category: TrackerCategory) {
+        let alertFormatString = NSLocalizedString("categories.deleteAlertText", comment: "")
+        let alertMessage = String(format: alertFormatString, category.title)
         let alert = UIAlertController(title: nil,
-                                      message: "Delete \(category.title)?",
+                                      message: alertMessage,
                                       preferredStyle: .actionSheet)
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
-            self?.viewModel.deleteCategory(category)
-        })
+        let deleteActionTitle = NSLocalizedString("categories.deleteAction", comment: "")
+        let deleteAction = UIAlertAction(
+            title: deleteActionTitle,
+            style: .destructive,
+            handler: { [weak self] _ in
+                self?.viewModel.deleteCategory(category)
+            }
+        )
         alert.addAction(deleteAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelActionTitle = NSLocalizedString("categories.cancelAction", comment: "")
+        let cancelAction = UIAlertAction(title: cancelActionTitle, style: .cancel)
         alert.addAction(cancelAction)
         
         present(alert, animated: true)

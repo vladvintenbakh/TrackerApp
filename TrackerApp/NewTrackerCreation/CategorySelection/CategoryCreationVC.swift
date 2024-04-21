@@ -18,7 +18,10 @@ final class CategoryCreationVC: UIViewController {
     private lazy var categoryNameTextField: UITextField = {
         let textField = UITextField()
         
-        textField.placeholder = "Enter category name"
+        textField.placeholder = NSLocalizedString(
+            "categoryCreation.textFieldPlaceholder",
+            comment: ""
+        )
         textField.layer.cornerRadius = 16
         textField.layer.masksToBounds = true
         textField.backgroundColor = UIColor(named: "TextFieldGray")
@@ -41,7 +44,8 @@ final class CategoryCreationVC: UIViewController {
         button.backgroundColor = UIColor(named: "YPGray")
         button.isEnabled = false
         
-        button.setTitle("Done", for: .normal)
+        let buttonTitle = NSLocalizedString("shared.doneButton", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
         button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         
@@ -88,7 +92,7 @@ final class CategoryCreationVC: UIViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
-        navigationItem.title = "New category"
+        navigationItem.title = NSLocalizedString("categoryCreation.title", comment: "")
         view.backgroundColor = UIColor(named: "YPWhite")
         
         let views = [categoryNameTextField, doneButton]

@@ -15,12 +15,14 @@ final class TabBarController: UITabBarController {
         let trackersVC = TrackersViewController()
         let navigationVC = UINavigationController(rootViewController: trackersVC)
         let firstVC = navigationVC
-        firstVC.tabBarItem = UITabBarItem(title: "Trackers",
+        let firstVCTitle = NSLocalizedString("shared.trackerTabTitle", comment: "")
+        firstVC.tabBarItem = UITabBarItem(title: firstVCTitle,
                                           image: UIImage(named: "TrackersTabBarIcon"),
                                           tag: 0)
         
         let secondVC = StatsViewController()
-        secondVC.tabBarItem = UITabBarItem(title: "Statistics",
+        let secondVCTitle = NSLocalizedString("mainScreen.tabBarItemTwo", comment: "")
+        secondVC.tabBarItem = UITabBarItem(title: secondVCTitle,
                                            image: UIImage(named: "StatsTabBarIcon"),
                                            tag: 1)
         

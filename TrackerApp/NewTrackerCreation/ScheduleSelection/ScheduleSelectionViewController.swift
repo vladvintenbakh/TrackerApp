@@ -31,7 +31,8 @@ final class ScheduleSelectionViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "YPBlack")
         
-        button.setTitle("Done", for: .normal)
+        let buttonTitle = NSLocalizedString("shared.doneButton", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
         button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         
@@ -53,7 +54,7 @@ final class ScheduleSelectionViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YPWhite")
         
-        navigationItem.title = "Schedule"
+        navigationItem.title = NSLocalizedString("shared.schedule", comment: "")
         
         view.addSubview(weekdayTableView)
         view.addSubview(doneButton)

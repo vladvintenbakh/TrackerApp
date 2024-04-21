@@ -14,7 +14,7 @@ final class TrackerOptionsTableViewCell: UITableViewCell {
     
     private let cellLabel: UILabel = {
         let label = UILabel()
-        label.text = "Category"
+        label.text = NSLocalizedString("shared.category", comment: "")
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = UIColor(named: "YPBlack")
         label.translatesAutoresizingMaskIntoConstraints = false

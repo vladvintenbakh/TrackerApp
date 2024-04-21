@@ -55,7 +55,7 @@ final class TrackerOptionsMenuViewController: UIViewController {
         guard let schedule else { return nil }
         
         if schedule.count == 7 {
-            return "Every day"
+            return NSLocalizedString("schedule.everyDay", comment: "")
         }
         
         var conciseNotationList: [String] = []
@@ -63,19 +63,19 @@ final class TrackerOptionsMenuViewController: UIViewController {
             var stringToAdd: String
             switch item {
             case .mon:
-                stringToAdd = "Mon"
+                stringToAdd = NSLocalizedString("schedule.mon", comment: "")
             case .tue:
-                stringToAdd = "Tue"
+                stringToAdd = NSLocalizedString("schedule.tue", comment: "")
             case .wed:
-                stringToAdd = "Wed"
+                stringToAdd = NSLocalizedString("schedule.wed", comment: "")
             case .thu:
-                stringToAdd = "Thu"
+                stringToAdd = NSLocalizedString("schedule.thu", comment: "")
             case .fri:
-                stringToAdd = "Fri"
+                stringToAdd = NSLocalizedString("schedule.fri", comment: "")
             case .sat:
-                stringToAdd = "Sat"
+                stringToAdd = NSLocalizedString("schedule.sat", comment: "")
             case .sun:
-                stringToAdd = "Sun"
+                stringToAdd = NSLocalizedString("schedule.sun", comment: "")
             }
             conciseNotationList.append(stringToAdd)
         }
@@ -201,14 +201,18 @@ final class TrackerOptionsMenuViewController: UIViewController {
     }
     
     private func setUpActionButtons() {
-        let cancelButton = trackerCreationHelper.createActionButton(text: "Cancel")
+        let cancelButtonTitle = NSLocalizedString("trackerCreationMenu.cancelButton",
+                                                  comment: "")
+        let cancelButton = trackerCreationHelper.createActionButton(text: cancelButtonTitle)
         cancelButton.setTitleColor(UIColor(named: "YPRed"), for: .normal)
         cancelButton.layer.borderColor = UIColor(named: "YPRed")?.cgColor
         cancelButton.layer.borderWidth = 1
         cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         self.cancelButton = cancelButton
         
-        let createButton = trackerCreationHelper.createActionButton(text: "Create")
+        let createButtonTitle = NSLocalizedString("trackerCreationMenu.createButton",
+                                                  comment: "")
+        let createButton = trackerCreationHelper.createActionButton(text: createButtonTitle)
         createButton.backgroundColor = UIColor(named: "YPBlack")
         createButton.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
         createButton.isEnabled = false
@@ -366,7 +370,7 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
         }
         
         if currentRow == 1 {
-            cell.setLabelText("Schedule")
+            cell.setLabelText(NSLocalizedString("shared.schedule", comment: ""))
             if scheduleValueText != nil { cell.setValue(scheduleValueText!) }
             cellType = "Last"
         }
@@ -488,9 +492,9 @@ extension TrackerOptionsMenuViewController: UICollectionViewDelegateFlowLayout {
                         at indexPath: IndexPath) -> UICollectionReusableView {
         var headerText: String
         if collectionView == emojiCollectionView {
-            headerText = "Emoji"
+            headerText = NSLocalizedString("trackerCreationMenu.emojiHeader", comment: "")
         } else if collectionView == colorCollectionView {
-            headerText = "Color"
+            headerText = NSLocalizedString("trackerCreationMenu.colorHeader", comment: "")
         } else {
             headerText = ""
         }

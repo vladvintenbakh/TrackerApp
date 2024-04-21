@@ -5,7 +5,7 @@
 //  Created by Vlad Vintenbakh on 24/3/24.
 //
 
-import Foundation
+import UIKit
 
 enum Weekday: String, CaseIterable, Comparable {
     case mon = "Monday"

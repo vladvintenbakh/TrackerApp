@@ -115,7 +115,7 @@ final class TrackersViewController: UIViewController {
         let label = UILabel()
         titleLabel = label
         
-        label.text = "Trackers"
+        label.text = NSLocalizedString("shared.trackerTabTitle", comment: "")
         label.textColor = UIColor(named: "YPBlack")
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
         label.textAlignment = .left
@@ -132,7 +132,7 @@ final class TrackersViewController: UIViewController {
         let searchBar = UISearchBar()
         trackerSearchBar = searchBar
         
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = NSLocalizedString("mainScreen.searchBarPlaceholder", comment: "")
         searchBar.searchBarStyle = .minimal
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchBar)
@@ -181,7 +181,7 @@ final class TrackersViewController: UIViewController {
         placeholderView.addSubview(imageView)
         
         let label = UILabel()
-        label.text = "Nothing here for now"
+        label.text = NSLocalizedString("mainScreen.emptyPlaceholder", comment: "")
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = UIColor(named: "YPBlack")
         label.textAlignment = .center

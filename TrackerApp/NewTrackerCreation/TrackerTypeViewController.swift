@@ -15,7 +15,7 @@ final class TrackerTypeViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Tracker creation"
+        label.text = NSLocalizedString("trackerType.title", comment: "")
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textColor = UIColor(named: "YPBlack")
@@ -28,7 +28,8 @@ final class TrackerTypeViewController: UIViewController {
         
         button.backgroundColor = UIColor(named: "YPBlack")
         
-        button.setTitle("Habit", for: .normal)
+        let buttonTitle = NSLocalizedString("trackerType.habitButton", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
         button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         
@@ -47,7 +48,8 @@ final class TrackerTypeViewController: UIViewController {
         
         button.backgroundColor = UIColor(named: "YPBlack")
         
-        button.setTitle("One-Off Event", for: .normal)
+        let buttonTitle = NSLocalizedString("trackerType.oneOffButton", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
         button.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         

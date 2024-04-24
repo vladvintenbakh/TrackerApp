@@ -28,6 +28,12 @@ final class TrackersViewController: UIViewController {
                                                   cellSpacing: 10,
                                                   topInset: 8,
                                                   bottomInset: 16)
+    
+    private var searchText = "" {
+        didSet {
+            try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +52,12 @@ final class TrackersViewController: UIViewController {
         setUpCollectionView()
         setUpEmptyCollectionPlaceholder()
         
+        trackerSearchBar.delegate = self
+        
         trackerStore.delegate = self
         trackerRecordStore.delegate = self
         
-        try? trackerStore.loadTrackersForDate(activeDate)
+        try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
         try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
         
         hideEmptyPlaceholderView(trackerStore.numberOfTrackers != 0)
@@ -105,7 +113,7 @@ final class TrackersViewController: UIViewController {
         guard let safeActiveDate = Date.safeDate(sender.date) else { return }
         activeDate = safeActiveDate
         
-        _ = try? trackerStore.loadTrackersForDate(activeDate)
+        _ = try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
         _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
         
         trackerCollectionView.reloadData()
@@ -361,5 +369,34 @@ extension TrackersViewController: TrackerStoreDelegate {
 extension TrackersViewController: TrackerRecordStoreDelegate {
     func didUpdateRecords(newRecordSet: Set<TrackerRecord>) {
         completedTrackers = newRecordSet
+    }
+}
+
+extension TrackersViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(true, animated: true)
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+        reloadCollectionView()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        clearSearchBar(searchBar)
+        reloadCollectionView()
+    }
+    
+    private func reloadCollectionView() {
+        trackerCollectionView.reloadData()
+    }
+    
+    private func clearSearchBar(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        self.searchText = ""
+        
+        searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
     }
 }

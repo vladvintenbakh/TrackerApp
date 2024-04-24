@@ -107,7 +107,7 @@ final class TrackerStore: NSObject {
                        daysCompleted: daysCompleted)
     }
     
-    func loadTrackersForDate(_ date: Date) throws {
+    func loadTrackersForDate(_ date: Date, searchText: String) throws {
         let weekdayAbbreviation = dateFormatter.string(from: date)
         
         var predicates: [NSPredicate] = []
@@ -118,6 +118,12 @@ final class TrackerStore: NSObject {
             #keyPath(TrackerCoreData.schedule),
             weekdayAbbreviation
         ))
+        
+        if !searchText.isEmpty {
+            predicates.append(NSPredicate(format: "%K contains[c] %@",
+                                          #keyPath(TrackerCoreData.name),
+                                          searchText))
+        }
         
         fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         try fetchedResultsController.performFetch()

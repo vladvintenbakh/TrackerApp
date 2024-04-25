@@ -37,7 +37,8 @@ final class TrackersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "YPWhite")
+//        view.backgroundColor = UIColor(named: "YPWhite")
+        view.backgroundColor = UIColor.systemBackground
 
         let tapGesture = UITapGestureRecognizer(
             target: self,
@@ -93,7 +94,7 @@ final class TrackersViewController: UIViewController {
             datePicker.bottomAnchor.constraint(equalTo: datePickerContainer.bottomAnchor),
             datePicker.leadingAnchor.constraint(equalTo: datePickerContainer.leadingAnchor),
             datePicker.trailingAnchor.constraint(equalTo: datePickerContainer.trailingAnchor),
-            datePicker.widthAnchor.constraint(equalToConstant: 120)
+            datePicker.widthAnchor.constraint(equalToConstant: 120),
         ])
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePickerContainer)

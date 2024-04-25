@@ -59,7 +59,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     
     private lazy var markCompletedButton: UIButton = {
         let button = UIButton()
-        button.tintColor = UIColor(named: "YPWhite")
+        button.tintColor = UIColor(named: "CompletedButton")
         button.setImage(UIImage(named: "plus"), for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true

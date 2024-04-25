@@ -1,0 +1,49 @@
+/* 
+  Localizable.strings
+  TrackerApp
+
+  Created by Vlad Vintenbakh on 21/4/24.
+  
+*/
+
+"shared.doneButton" = "Готово";
+"shared.trackerTabTitle" = "Трекеры";
+"shared.category" = "Категория";
+"shared.schedule" = "Расписание";
+
+"onboarding.firstPage" = "Отслеживайте только то, что хотите";
+"onboarding.secondPage" = "Даже если это не литры воды и йога";
+"onboarding.button" = "Вот это технологии!";
+
+"mainScreen.searchBarPlaceholder" = "Поиск";
+"mainScreen.emptyPlaceholder" = "Что будем отслеживать?";
+"mainScreen.tabBarItemTwo" = "Статистика";
+
+"trackerType.title" = "Создание трекера";
+"trackerType.habitButton" = "Привычка";
+"trackerType.oneOffButton" = "Нерегулярное событие";
+
+"trackerCreationMenu.textFieldPlaceholder" = "Введите название трекера";
+"trackerCreationMenu.emojiHeader" = "Emoji";
+"trackerCreationMenu.colorHeader" = "Цвет";
+"trackerCreationMenu.cancelButton" = "Отменить";
+"trackerCreationMenu.createButton" = "Создать";
+
+"categories.emptyPlaceholder" = "Привычки и события можно объединить по смыслу";
+"categories.addCategoryButton" = "Добавить категорию";
+"categories.editAction" = "Редактировать";
+"categories.deleteAction" = "Удалить";
+"categories.deleteAlertText" = "Удалить %@?";
+"categories.cancelAction" = "Отменить";
+
+"categoryCreation.title" = "Новая категория";
+"categoryCreation.textFieldPlaceholder" = "Введите название категории";
+
+"schedule.everyDay" = "Каждый день";
+"schedule.mon" = "Пн";
+"schedule.tue" = "Вт";
+"schedule.wed" = "Ср";
+"schedule.thu" = "Чт";
+"schedule.fri" = "Пт";
+"schedule.sat" = "Сб";
+"schedule.sun" = "Вс";

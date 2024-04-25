@@ -47,3 +47,7 @@
 "schedule.fri" = "Fri";
 "schedule.sat" = "Sat";
 "schedule.sun" = "Sun";
+
+"statsScreen.title" = "Statistics";
+"statsScreen.emptyPlaceholder" = "No stats to report";
+"stats.trackersCompleted" = "Trackers completed";

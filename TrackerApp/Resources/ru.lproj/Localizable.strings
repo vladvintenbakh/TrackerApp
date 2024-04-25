@@ -47,3 +47,7 @@
 "schedule.fri" = "Пт";
 "schedule.sat" = "Сб";
 "schedule.sun" = "Вс";
+
+"statsScreen.title" = "Статистика";
+"statsScreen.emptyPlaceholder" = "Анализировать пока нечего";
+"stats.trackersCompleted" = "Трекеров завершено";

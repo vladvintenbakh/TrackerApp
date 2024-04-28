@@ -24,6 +24,9 @@
 		602C41AF2BA815E20033713F /* TrackerOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41AE2BA815E20033713F /* TrackerOptionsMenuViewController.swift */; };
 		602C41B22BA8170F0033713F /* TrackerCreationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */; };
 		602C41B42BA823250033713F /* TrackerOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C41B32BA823250033713F /* TrackerOptionsTableViewCell.swift */; };
+		60366DC92BDBB006009B7C93 /* StatsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60366DC82BDBB006009B7C93 /* StatsCard.swift */; };
+		60366DCB2BDBB097009B7C93 /* UIView+addGradientBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60366DCA2BDBB097009B7C93 /* UIView+addGradientBorder.swift */; };
+		60366DCD2BDBB1B5009B7C93 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60366DCC2BDBB1B5009B7C93 /* StatsViewModel.swift */; };
 		603BAC8F2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BAC8E2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift */; };
 		603BAC912BAA980A006F81D4 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BAC902BAA980A006F81D4 /* ColorCollectionViewCell.swift */; };
 		603BAC932BAACCF2006F81D4 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BAC922BAACCF2006F81D4 /* CollectionHeader.swift */; };
@@ -79,6 +82,9 @@
 		602C41AE2BA815E20033713F /* TrackerOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerOptionsMenuViewController.swift; sourceTree = "<group>"; };
 		602C41B12BA8170F0033713F /* TrackerCreationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCreationHelper.swift; sourceTree = "<group>"; };
 		602C41B32BA823250033713F /* TrackerOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerOptionsTableViewCell.swift; sourceTree = "<group>"; };
+		60366DC82BDBB006009B7C93 /* StatsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCard.swift; sourceTree = "<group>"; };
+		60366DCA2BDBB097009B7C93 /* UIView+addGradientBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addGradientBorder.swift"; sourceTree = "<group>"; };
+		60366DCC2BDBB1B5009B7C93 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		603BAC8E2BAA94A4006F81D4 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
 		603BAC902BAA980A006F81D4 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		603BAC922BAACCF2006F81D4 /* CollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 				60EC08772BB5377900743037 /* CustomSeparatorCell.swift */,
 				602297362BBFFDE9006EBB4D /* Date+safeDate.swift */,
 				602297382BC0032C006EBB4D /* UIColorMarshalling.swift */,
+				60366DCA2BDBB097009B7C93 /* UIView+addGradientBorder.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -176,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				602A10962B9D6B6300F65D7F /* StatsViewController.swift */,
+				60366DC82BDBB006009B7C93 /* StatsCard.swift */,
+				60366DCC2BDBB1B5009B7C93 /* StatsViewModel.swift */,
 			);
 			path = StatsScreen;
 			sourceTree = "<group>";
@@ -423,6 +432,7 @@
 				608F86402BB0182B002AC724 /* ScheduleSelectionViewController.swift in Sources */,
 				60FB4AAE2B9AEF3F0058AED1 /* TrackerApp.xcdatamodeld in Sources */,
 				60EC08782BB5377900743037 /* CustomSeparatorCell.swift in Sources */,
+				60366DCD2BDBB1B5009B7C93 /* StatsViewModel.swift in Sources */,
 				602C41AD2BA7F58A0033713F /* CollectionConstants.swift in Sources */,
 				60FB4AA82B9AEF3F0058AED1 /* TrackersViewController.swift in Sources */,
 				602297372BBFFDE9006EBB4D /* Date+safeDate.swift in Sources */,
@@ -442,6 +452,8 @@
 				602A10992B9D6BF300F65D7F /* TabBarController.swift in Sources */,
 				608F86442BB01CEA002AC724 /* Weekday.swift in Sources */,
 				60A89DE52BC92033002DC16A /* EntryVC.swift in Sources */,
+				60366DC92BDBB006009B7C93 /* StatsCard.swift in Sources */,
+				60366DCB2BDBB097009B7C93 /* UIView+addGradientBorder.swift in Sources */,
 				602C41AB2BA7EC9B0033713F /* TrackerTypeViewController.swift in Sources */,
 				60526A872BA3F4F300B4DE14 /* TrackerRecord.swift in Sources */,
 				602A10972B9D6B6300F65D7F /* StatsViewController.swift in Sources */,

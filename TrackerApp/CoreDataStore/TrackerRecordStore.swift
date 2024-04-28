@@ -98,4 +98,10 @@ final class TrackerRecordStore: NSObject {
         completedTrackers = Set(transformedRecords)
         delegate?.didUpdateRecords(newRecordSet: completedTrackers)
     }
+    
+    func fetchAll() throws -> [TrackerRecord] {
+        let fetchRequest = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let records = try context.fetch(fetchRequest).map { try record(from: $0) }
+        return records
+    }
 }

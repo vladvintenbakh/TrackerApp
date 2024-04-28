@@ -50,4 +50,4 @@
 
 "statsScreen.title" = "Statistics";
 "statsScreen.emptyPlaceholder" = "No stats to report";
-"stats.trackersCompleted" = "Trackers completed";
+"stats.trackersCompleted" = "Tracker(s) completed";

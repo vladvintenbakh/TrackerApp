@@ -20,7 +20,7 @@ final class TabBarController: UITabBarController {
                                           image: UIImage(named: "TrackersTabBarIcon"),
                                           tag: 0)
         
-        let secondVC = StatsViewController()
+        let secondVC = StatsViewController(viewModel: StatsViewModel())
         let secondVCTitle = NSLocalizedString("mainScreen.tabBarItemTwo", comment: "")
         secondVC.tabBarItem = UITabBarItem(title: secondVCTitle,
                                            image: UIImage(named: "StatsTabBarIcon"),

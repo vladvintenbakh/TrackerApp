@@ -8,6 +8,9 @@
 import UIKit
 
 final class StatsViewController: UIViewController {
+    
+    private let viewModel: StatsViewModel?
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         
@@ -38,6 +41,24 @@ final class StatsViewController: UIViewController {
         return placeholderView
     }()
     
+    private let statsStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        return stack
+    }()
+    
+    private let statsCard = StatsCard(number: 0,
+                                      statDescription: NSLocalizedString("stats.trackersCompleted", comment: ""))
+    
+    init(viewModel: StatsViewModel? = nil) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YPWhite")
@@ -48,13 +69,26 @@ final class StatsViewController: UIViewController {
             placeholderView.addSubview(item)
         }
         
-        let views = [titleLabel, placeholderView]
+        statsStack.addArrangedSubview(statsCard)
+        
+        let views = [titleLabel, placeholderView, statsStack]
         views.forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(item)
         }
         
         setUpConstraints()
+        
+        viewModel?.onRecordsUpdateStateChange = { [weak self] records in
+            guard let self else { return }
+            statsCard.setNumber(records.count)
+            showEmptyPlaceholder(records.isEmpty)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.viewWillAppear()
     }
     
     private func setUpConstraints() {
@@ -75,7 +109,16 @@ final class StatsViewController: UIViewController {
             
             placeholderLabel.topAnchor.constraint(equalTo: placeholderImageView.bottomAnchor, constant: 8),
             placeholderLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            placeholderLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            placeholderLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            statsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            statsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            statsStack.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
+    }
+    
+    private func showEmptyPlaceholder(_ flag: Bool) {
+        placeholderView.isHidden = !flag
+        statsStack.isHidden = flag
     }
 }

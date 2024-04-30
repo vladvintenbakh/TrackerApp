@@ -30,6 +30,8 @@ final class TrackersViewController: UIViewController {
                                                   topInset: 8,
                                                   bottomInset: 16)
     
+    private let analyticsService = AnalyticsService()
+    
     private var searchText = "" {
         didSet {
             try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
@@ -62,6 +64,16 @@ final class TrackersViewController: UIViewController {
         try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
         
         hideEmptyPlaceholderView(trackerStore.numberOfTrackers != 0)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        analyticsService.report(event: "open", params: ["screen": "Main"])
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        analyticsService.report(event: "close", params: ["screen": "Main"])
     }
     
     private func setUpNavigationBar() {
@@ -105,6 +117,7 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func addTrackerButtonPressed() {
+        analyticsService.report(event: "click", params: ["screen": "Main", "item": "add_track"])
         let trackerTypeVC = TrackerTypeViewController()
         trackerTypeVC.delegate = self
         present(trackerTypeVC, animated: true)
@@ -461,6 +474,7 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
     }
     
     private func initializeEditingTracker(_ tracker: Tracker) {
+        analyticsService.report(event: "click", params: ["screen": "Main", "item": "edit"])
         let type = tracker.schedule != nil ? "New habit" : "New one-off event"
         trackerToEdit = tracker
         presentTrackerOptionsMenuVC(trackerObject: tracker.trackerObjectInstance, trackerType: type, userOperation: .editTracker)
@@ -477,6 +491,8 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
         
         let deleteAction = UIAlertAction(title: deleteActionTitle, style: .destructive) { [weak self] _ in
             guard let self else { return }
+            
+            self.analyticsService.report(event: "click", params: ["screen": "Main", "item": "delete"])
             
             try? self.trackerStore.deleteTracker(tracker: tracker)
             

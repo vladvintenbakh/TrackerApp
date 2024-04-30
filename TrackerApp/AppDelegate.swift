@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        AnalyticsService.activate()
         window = UIWindow()
         window?.rootViewController = EntryVC()
         window?.makeKeyAndVisible()

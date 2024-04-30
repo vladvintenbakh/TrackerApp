@@ -80,6 +80,8 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    private let analyticsService = AnalyticsService()
+    
     weak var delegate: TrackerCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
@@ -194,6 +196,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func pressedMarkCompletedButton() {
+        analyticsService.report(event: "click", params: ["screen": "Main", "item": "track"])
         guard let currentTracker else { return }
         delegate?.didMarkDayCompleted(for: currentTracker, cell: self)
     }

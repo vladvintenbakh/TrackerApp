@@ -16,6 +16,7 @@ final class TrackersViewController: UIViewController {
     
     private var categories: [TrackerCategory] = []
     private var completedTrackers: Set<TrackerRecord> = []
+    private var trackerToEdit: Tracker?
     
     private var activeDate = Date.safeDate(Date())!
     
@@ -37,7 +38,6 @@ final class TrackersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = UIColor(named: "YPWhite")
         view.backgroundColor = UIColor.systemBackground
 
         let tapGesture = UITapGestureRecognizer(
@@ -217,26 +217,46 @@ final class TrackersViewController: UIViewController {
     private func hideEmptyPlaceholderView(_ flag: Bool) {
         emptyPlaceholderView.isHidden = flag
     }
-}
-
-extension TrackersViewController: TrackerTypeViewControllerDelegate {
-    func didPickTrackerType(_ type: String) {
-        dismiss(animated: true)
-        let trackerOptionsMenuVC = TrackerOptionsMenuViewController(trackerType: type)
+    
+    private func presentTrackerOptionsMenuVC(trackerObject: Tracker.TrackerObject?,
+                                             trackerType: String,
+                                             userOperation: UserOperation) {
+        let trackerOptionsMenuVC = TrackerOptionsMenuViewController(trackerObject: trackerObject,
+                                                                    trackerType: trackerType,
+                                                                    userOperation: userOperation)
         trackerOptionsMenuVC.delegate = self
         present(trackerOptionsMenuVC, animated: true)
     }
 }
 
+extension TrackersViewController: TrackerTypeViewControllerDelegate {
+    func didPickTrackerType(_ trackerType: String) {
+        dismiss(animated: true)
+        presentTrackerOptionsMenuVC(trackerObject: nil, trackerType: trackerType, userOperation: .createTracker)
+    }
+}
+
 extension TrackersViewController: TrackerOptionsMenuViewControllerDelegate {
     func didPressCancelButton() {
+        trackerToEdit = nil
         dismiss(animated: true)
         trackerCollectionView.reloadData()
     }
     
     func didPressCreateButton(category: TrackerCategory, newTracker: Tracker) {
         dismiss(animated: true)
+        
         try? trackerStore.addTracker(category: category, tracker: newTracker)
+    }
+    
+    func didFinishEditing(newObject trackerObject: Tracker.TrackerObject) {
+        dismiss(animated: true)
+        
+        if let trackerToEdit {
+            try? trackerStore.updateTracker(tracker: trackerToEdit, with: trackerObject)
+        }
+        
+        trackerToEdit = nil
     }
 }
 
@@ -265,7 +285,8 @@ extension TrackersViewController: UICollectionViewDataSource {
         
         cell.updateContent(tracker: tracker,
                            completionStatus: completionStatus,
-                           dayCount: tracker.daysCompleted)
+                           dayCount: tracker.daysCompleted,
+                           interaction: UIContextMenuInteraction(delegate: self))
         
         return cell
     }
@@ -399,5 +420,76 @@ extension TrackersViewController: UISearchBarDelegate {
         
         searchBar.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
+    }
+}
+
+extension TrackersViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        guard let location = interaction.view?.convert(location, to: trackerCollectionView),
+              let indexPath = trackerCollectionView.indexPathForItem(at: location)
+        else { return nil }
+        
+        guard let tracker = trackerStore.object(at: indexPath) else { return nil }
+        
+        let unpinString = NSLocalizedString("mainScreen.unpin", comment: "")
+        let pinString = NSLocalizedString("mainScreen.pin", comment: "")
+        let editString = NSLocalizedString("mainScreen.edit", comment: "")
+        let deleteString = NSLocalizedString("mainScreen.delete", comment: "")
+        
+        let pinActionTitle = tracker.isPinned ? unpinString : pinString
+        
+        let pinAction = UIAction(title: pinActionTitle) { [weak self] _ in
+            self?.syncPinForTracker(tracker)
+        }
+        
+        let editAction = UIAction(title: editString) { [weak self] _ in
+            self?.initializeEditingTracker(tracker)
+        }
+        
+        let deleteAction = UIAction(title: deleteString, attributes: .destructive) { [weak self] _ in
+            self?.presentDeletionAlertForTracker(tracker)
+        }
+        
+        return UIContextMenuConfiguration(actionProvider: { _ in
+            UIMenu(children: [pinAction, editAction, deleteAction])
+        })
+    }
+    
+    private func syncPinForTracker(_ tracker: Tracker) {
+        try? trackerStore.pinOrUnpinTracker(tracker: tracker)
+    }
+    
+    private func initializeEditingTracker(_ tracker: Tracker) {
+        let type = tracker.schedule != nil ? "New habit" : "New one-off event"
+        trackerToEdit = tracker
+        presentTrackerOptionsMenuVC(trackerObject: tracker.trackerObjectInstance, trackerType: type, userOperation: .editTracker)
+    }
+    
+    private func presentDeletionAlertForTracker(_ tracker: Tracker) {
+        let confirmationMessage = NSLocalizedString("mainScreen.deleteAlert.confirmationMessage", comment: "")
+        let cancelActionTitle = NSLocalizedString("mainScreen.deleteAlert.cancel", comment: "")
+        let deleteActionTitle = NSLocalizedString("mainScreen.deleteAlert.delete", comment: "")
+        
+        let alert = UIAlertController(title: nil, message: confirmationMessage, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: cancelActionTitle, style: .cancel)
+        
+        let deleteAction = UIAlertAction(title: deleteActionTitle, style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            
+            try? self.trackerStore.deleteTracker(tracker: tracker)
+            
+            if let recordToRemove = completedTrackers.first(where: {
+                $0.date == self.activeDate && $0.trackerID == tracker.id
+            }) {
+                try? trackerRecordStore.deleteRecord(recordToRemove)
+            }
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        present(alert, animated: true)
     }
 }

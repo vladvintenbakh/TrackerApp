@@ -18,6 +18,14 @@
 "mainScreen.searchBarPlaceholder" = "Search";
 "mainScreen.emptyPlaceholder" = "Nothing here for now";
 "mainScreen.tabBarItemTwo" = "Statistics";
+"mainScreen.pinned" = "Pinned";
+"mainScreen.pin" = "Pin";
+"mainScreen.unpin" = "Unpin";
+"mainScreen.edit" = "Edit";
+"mainScreen.delete" = "Delete";
+"mainScreen.deleteAlert.confirmationMessage" = "Are you sure you would like to delete this tracker?";
+"mainScreen.deleteAlert.cancel" = "Cancel";
+"mainScreen.deleteAlert.delete" = "Delete";
 
 "trackerType.title" = "Tracker creation";
 "trackerType.habitButton" = "Habit";

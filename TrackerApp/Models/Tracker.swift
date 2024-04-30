@@ -14,6 +14,8 @@ struct Tracker {
     let color: UIColor
     let schedule: [Weekday]?
     let daysCompleted: Int
+    let category: TrackerCategory
+    let isPinned: Bool
     
     struct TrackerObject {
         var name: String = ""
@@ -21,5 +23,17 @@ struct Tracker {
         var color: UIColor?
         var schedule: [Weekday]?
         var daysCompleted = 0
+        var category: TrackerCategory?
+        var isPinned: Bool = false
+    }
+    
+    var trackerObjectInstance: TrackerObject {
+        TrackerObject(name: name,
+                      emoji: emoji,
+                      color: color,
+                      schedule: schedule,
+                      daysCompleted: daysCompleted,
+                      category: category,
+                      isPinned: isPinned)
     }
 }

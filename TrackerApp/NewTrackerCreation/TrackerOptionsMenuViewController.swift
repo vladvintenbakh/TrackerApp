@@ -10,6 +10,7 @@ import UIKit
 protocol TrackerOptionsMenuViewControllerDelegate: AnyObject {
     func didPressCancelButton()
     func didPressCreateButton(category: TrackerCategory, newTracker: Tracker)
+    func didFinishEditing(newObject trackerObject: Tracker.TrackerObject)
 }
 
 final class TrackerOptionsMenuViewController: UIViewController {
@@ -28,14 +29,10 @@ final class TrackerOptionsMenuViewController: UIViewController {
     private let trackerCategoryStore = TrackerCategoryStore()
     private let trackerType: String
     private let cellHeight: CGFloat = 52
+    private var createOrEditButtonName = "Create"
+    private let userOperation: UserOperation
 
     private var trackerObject: Tracker.TrackerObject {
-        didSet {
-            validateFormFields()
-        }
-    }
-    
-    private lazy var category: TrackerCategory? = nil {
         didSet {
             validateFormFields()
         }
@@ -114,15 +111,33 @@ final class TrackerOptionsMenuViewController: UIViewController {
         setUpEmojiCollectionView()
         setUpColorCollectionView()
         setUpActionButtons()
+        
+        createOrEditButtonName = userOperation == .createTracker ? "Create" : "Edit"
+        
+        switch userOperation {
+        case .createTracker:
+            titleLabel.text = trackerType
+        case .editTracker:
+            titleLabel.text = "Edit the event/habit"
+        }
+        
+        trackerNameTextField.text = trackerObject.name
+        
+        if trackerType == "New habit" {
+            trackerObject.schedule = trackerObject.schedule ?? []
+        } else if trackerType == "New one-off event" {
+            trackerObject.schedule = nil
+        }
+        
         addRelativeConstraints()
         
         validateFormFields()
     }
     
-    init(trackerType: String, trackerObject: Tracker.TrackerObject = Tracker.TrackerObject()) {
+    init(trackerObject: Tracker.TrackerObject?, trackerType: String, userOperation: UserOperation) {
+        self.trackerObject = trackerObject ?? Tracker.TrackerObject()
         self.trackerType = trackerType
-        self.trackerObject = trackerObject
-        self.trackerObject.schedule = trackerType == "New habit" ? [] : nil
+        self.userOperation = userOperation
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -210,9 +225,7 @@ final class TrackerOptionsMenuViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         self.cancelButton = cancelButton
         
-        let createButtonTitle = NSLocalizedString("trackerCreationMenu.createButton",
-                                                  comment: "")
-        let createButton = trackerCreationHelper.createActionButton(text: createButtonTitle)
+        let createButton = trackerCreationHelper.createActionButton(text: createOrEditButtonName)
         createButton.backgroundColor = UIColor(named: "YPBlack")
         createButton.setTitleColor(UIColor(named: "YPWhite"), for: .normal)
         createButton.isEnabled = false
@@ -293,19 +306,30 @@ final class TrackerOptionsMenuViewController: UIViewController {
     }
     
     @objc private func createButtonPressed() {
-        guard let category,
-              let emoji = trackerObject.emoji,
-              let color = trackerObject.color 
-        else { return }
-        
-        let tracker = Tracker(id: UUID(),
-                              name: trackerObject.name,
-                              emoji: emoji,
-                              color: color,
-                              schedule: trackerObject.schedule,
-                              daysCompleted: 0)
-        
-        delegate?.didPressCreateButton(category: category, newTracker: tracker)
+        switch userOperation {
+            
+        case .createTracker:
+            guard let emoji = trackerObject.emoji,
+                  let color = trackerObject.color,
+                  let category = trackerObject.category
+            else { return }
+            
+            let newTracker = Tracker(
+                id: UUID(),
+                name: trackerObject.name,
+                emoji: emoji,
+                color: color,
+                schedule: trackerObject.schedule,
+                daysCompleted: 0,
+                category: category,
+                isPinned: false
+            )
+            
+            delegate?.didPressCreateButton(category: category, newTracker: newTracker)
+            
+        case .editTracker:
+            delegate?.didFinishEditing(newObject: trackerObject)
+        }
     }
     
     private func validateFormFields() {
@@ -314,7 +338,7 @@ final class TrackerOptionsMenuViewController: UIViewController {
             trackerObject.name.count == 0,
             trackerObject.emoji == nil,
             trackerObject.color == nil,
-            category == nil
+            trackerObject.category == nil
         ]
         
         if let schedule = trackerObject.schedule {
@@ -364,7 +388,7 @@ extension TrackerOptionsMenuViewController: UITableViewDataSource {
         
         if currentRow == 0 {
             
-            if category != nil { cell.setValue(category!.title) }
+            if trackerObject.category != nil { cell.setValue(trackerObject.category!.title) }
             
             cellType = "First"
         }
@@ -392,7 +416,7 @@ extension TrackerOptionsMenuViewController: UITableViewDelegate {
         let currentRow = indexPath.row
         
         if currentRow == 0 {
-            let categorySelectionVC = CategorySelectionVC(pickedCategory: category)
+            let categorySelectionVC = CategorySelectionVC(pickedCategory: trackerObject.category)
             categorySelectionVC.delegate = self
             
             let navigationVC = UINavigationController(rootViewController: categorySelectionVC)
@@ -442,6 +466,12 @@ extension TrackerOptionsMenuViewController: UICollectionViewDataSource {
                 for: indexPath
             ) as? EmojiCollectionViewCell
             cell?.setEmoji(currentEmoji)
+            
+            if currentEmoji == trackerObject.emoji {
+                cell?.contentView.backgroundColor = UIColor(named: "YPLightGray")
+                emojiCollectionView.selectItem(at: indexPath,animated: false, scrollPosition: .bottom)
+            }
+            
             return cell!
         } else if collectionView == colorCollectionView {
             let currentColor = colorOptions[indexPath.row]
@@ -450,6 +480,17 @@ extension TrackerOptionsMenuViewController: UICollectionViewDataSource {
                 for: indexPath
             ) as? ColorCollectionViewCell
             cell?.setColor(currentColor)
+            
+            if let objectColor = trackerObject.color {
+                let currentHexString = UIColorMarshalling.hexString(from: currentColor)
+                let objectHexString = UIColorMarshalling.hexString(from: objectColor)
+                if currentHexString == objectHexString {
+                    cell?.contentView.layer.borderWidth = 3
+                    cell?.contentView.layer.borderColor = currentColor.withAlphaComponent(0.3).cgColor
+                    colorCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .bottom)
+                }
+            }
+            
             return cell!
         }
         return UICollectionViewCell()
@@ -577,7 +618,7 @@ extension TrackerOptionsMenuViewController: CategorySelectionVCDelegate {
     func didFinishCategorySelection(category: TrackerCategory) {
         dismiss(animated: true)
         
-        self.category = category
+        trackerObject.category = category
         optionsTableView.reloadData()
     }
 }

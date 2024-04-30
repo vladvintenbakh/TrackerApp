@@ -18,6 +18,14 @@
 "mainScreen.searchBarPlaceholder" = "Поиск";
 "mainScreen.emptyPlaceholder" = "Что будем отслеживать?";
 "mainScreen.tabBarItemTwo" = "Статистика";
+"mainScreen.pinned" = "Закрепленные";
+"mainScreen.pin" = "Закрепить";
+"mainScreen.unpin" = "Открепить";
+"mainScreen.edit" = "Редактировать";
+"mainScreen.delete" = "Удалить";
+"mainScreen.deleteAlert.confirmationMessage" = "Уверены что хотите удалить трекер?";
+"mainScreen.deleteAlert.cancel" = "Отменить";
+"mainScreen.deleteAlert.delete" = "Удалить";
 
 "trackerType.title" = "Создание трекера";
 "trackerType.habitButton" = "Привычка";

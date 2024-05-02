@@ -40,7 +40,7 @@ final class TrackersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = UIColor(named: "DynamicBackground")
 
         let tapGesture = UITapGestureRecognizer(
             target: self,
@@ -169,6 +169,9 @@ final class TrackersViewController: UIViewController {
     private func setUpCollectionView() {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: UICollectionViewFlowLayout())
+        
+        collectionView.backgroundColor = UIColor(named: "DynamicBackground")
+        
         trackerCollectionView = collectionView
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)

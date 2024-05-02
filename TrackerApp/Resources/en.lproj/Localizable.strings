@@ -26,6 +26,7 @@
 "mainScreen.deleteAlert.confirmationMessage" = "Are you sure you would like to delete this tracker?";
 "mainScreen.deleteAlert.cancel" = "Cancel";
 "mainScreen.deleteAlert.delete" = "Delete";
+"mainScreen.filtersButton" = "Filters";
 
 "trackerType.title" = "Tracker creation";
 "trackerType.habitButton" = "Habit";

@@ -13,6 +13,7 @@ final class TrackersViewController: UIViewController {
     private var trackerSearchBar: UISearchBar!
     private var trackerCollectionView: UICollectionView!
     private var emptyPlaceholderView: UIView!
+    private var filtersButton: UIButton!
     
     private var categories: [TrackerCategory] = []
     private var completedTrackers: Set<TrackerRecord> = []
@@ -54,6 +55,7 @@ final class TrackersViewController: UIViewController {
         setUpSearchBar()
         setUpCollectionView()
         setUpEmptyCollectionPlaceholder()
+        setUpFiltersButton()
         
         trackerSearchBar.delegate = self
         
@@ -228,6 +230,36 @@ final class TrackersViewController: UIViewController {
             label.leadingAnchor.constraint(equalTo: trackerCollectionView.leadingAnchor),
             label.trailingAnchor.constraint(equalTo: trackerCollectionView.trailingAnchor)
         ])
+    }
+    
+    private func setUpFiltersButton() {
+        let button = UIButton()
+        filtersButton = button
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        
+        button.backgroundColor = UIColor(named: "YPBlue")
+        
+        button.setTitle(NSLocalizedString("mainScreen.filtersButton", comment: ""),
+                        for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        
+        button.layer.cornerRadius = 16
+        button.layer.masksToBounds = true
+        
+        button.addTarget(self, action: #selector(filtersButtonPressed), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            button.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            button.heightAnchor.constraint(equalToConstant: 50),
+            button.widthAnchor.constraint(equalToConstant: 114)
+        ])
+    }
+    
+    @objc private func filtersButtonPressed() {
+        
     }
     
     private func hideEmptyPlaceholderView(_ flag: Bool) {

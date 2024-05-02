@@ -26,6 +26,7 @@
 "mainScreen.deleteAlert.confirmationMessage" = "Уверены что хотите удалить трекер?";
 "mainScreen.deleteAlert.cancel" = "Отменить";
 "mainScreen.deleteAlert.delete" = "Удалить";
+"mainScreen.filtersButton" = "Фильтры";
 
 "trackerType.title" = "Создание трекера";
 "trackerType.habitButton" = "Привычка";

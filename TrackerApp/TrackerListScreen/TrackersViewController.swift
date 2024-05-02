@@ -100,15 +100,21 @@ final class TrackersViewController: UIViewController {
         
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         
+        datePicker.overrideUserInterfaceStyle = .light
+        
         let datePickerContainer = UIView()
         datePickerContainer.addSubview(datePicker)
+        
+        datePickerContainer.layer.cornerRadius = 8
+        datePickerContainer.backgroundColor = .white
+        datePickerContainer.layer.masksToBounds = true
         
         NSLayoutConstraint.activate([
             datePicker.topAnchor.constraint(equalTo: datePickerContainer.topAnchor),
             datePicker.bottomAnchor.constraint(equalTo: datePickerContainer.bottomAnchor),
             datePicker.leadingAnchor.constraint(equalTo: datePickerContainer.leadingAnchor),
             datePicker.trailingAnchor.constraint(equalTo: datePickerContainer.trailingAnchor),
-            datePicker.widthAnchor.constraint(equalToConstant: 120),
+            datePickerContainer.widthAnchor.constraint(equalToConstant: 110)
         ])
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePickerContainer)

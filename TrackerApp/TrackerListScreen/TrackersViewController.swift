@@ -270,6 +270,7 @@ final class TrackersViewController: UIViewController {
     
     private func hideEmptyPlaceholderView(_ flag: Bool) {
         emptyPlaceholderView.isHidden = flag
+        filtersButton.isHidden = !flag
     }
     
     private func presentTrackerOptionsMenuVC(trackerObject: Tracker.TrackerObject?,

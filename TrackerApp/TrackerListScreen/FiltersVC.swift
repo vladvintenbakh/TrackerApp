@@ -7,7 +7,17 @@
 
 import UIKit
 
+protocol FiltersVCDelegate: AnyObject {
+    func didPickFilter(_ filter: FilterOptions)
+}
+
 final class FiltersVC: UIViewController {
+    weak var delegate: FiltersVCDelegate?
+    
+    private let filterOptions: [FilterOptions] = [.all, .today, .completed, .notCompleted]
+    
+    private var currentFilter: FilterOptions
+    
     private let filterNames = [
         NSLocalizedString("filters.allTrackers", comment: ""),
         NSLocalizedString("filters.trackersForToday", comment: ""),
@@ -28,6 +38,15 @@ final class FiltersVC: UIViewController {
         
         return table
     }()
+    
+    init(currentFilter: FilterOptions) {
+        self.currentFilter = currentFilter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +79,7 @@ final class FiltersVC: UIViewController {
 
 extension FiltersVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterNames.count
+        return filterOptions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,6 +89,7 @@ extension FiltersVC: UITableViewDataSource {
         ) as? FiltersTableViewCell
         guard let cell else { return UITableViewCell() }
         
+        let filter = filterOptions[indexPath.row]
         let filterName = filterNames[indexPath.row]
         
         var cellType = "Middle"
@@ -81,7 +101,7 @@ extension FiltersVC: UITableViewDataSource {
         }
         
         cell.setLabelText(filterName)
-        cell.showCheckMark(false)
+        cell.showCheckMark(filter == currentFilter)
         cell.configCustomCell(cellType: cellType)
         
         return cell
@@ -91,5 +111,12 @@ extension FiltersVC: UITableViewDataSource {
 extension FiltersVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dismiss(animated: true)
+        currentFilter = filterOptions[indexPath.row]
+        delegate?.didPickFilter(currentFilter)
+        filtersTableView.reloadData()
     }
 }

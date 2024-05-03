@@ -20,6 +20,7 @@ final class TrackersViewController: UIViewController {
     private var trackerToEdit: Tracker?
     
     private var activeDate = Date.safeDate(Date())!
+    private var activeFilter: FilterOptions = .all
     
     private let trackerStore = TrackerStore()
     private let trackerCategoryStore = TrackerCategoryStore()
@@ -265,7 +266,8 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonPressed() {
-        let filtersVC = FiltersVC()
+        let filtersVC = FiltersVC(currentFilter: activeFilter)
+        filtersVC.delegate = self
         let navigationVC = UINavigationController(rootViewController: filtersVC)
         present(navigationVC, animated: true)
     }
@@ -551,5 +553,11 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
         alert.addAction(deleteAction)
         
         present(alert, animated: true)
+    }
+}
+
+extension TrackersViewController: FiltersVCDelegate {
+    func didPickFilter(_ filter: FilterOptions) {
+        activeFilter = filter
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 final class TabBarController: UITabBarController {
     override func viewDidLoad() {
-        tabBar.layer.borderWidth = 1
+        tabBar.layer.borderWidth = 0.5
         updateBorderColor(for: traitCollection)
         
         let trackersVC = TrackersViewController()

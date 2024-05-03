@@ -28,6 +28,12 @@
 "mainScreen.deleteAlert.delete" = "Удалить";
 "mainScreen.filtersButton" = "Фильтры";
 
+"filters.title" = "Фильтры";
+"filters.allTrackers" = "Все трекеры";
+"filters.trackersForToday" = "Трекеры на сегодня";
+"filters.completed" = "Завершенные";
+"filters.notCompleted" = "Не завершенные";
+
 "trackerType.title" = "Создание трекера";
 "trackerType.habitButton" = "Привычка";
 "trackerType.oneOffButton" = "Нерегулярное событие";

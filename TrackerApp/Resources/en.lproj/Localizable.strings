@@ -28,6 +28,12 @@
 "mainScreen.deleteAlert.delete" = "Delete";
 "mainScreen.filtersButton" = "Filters";
 
+"filters.title" = "Filters";
+"filters.allTrackers" = "All trackers";
+"filters.trackersForToday" = "Trackers for today";
+"filters.completed" = "Completed";
+"filters.notCompleted" = "Not completed";
+
 "trackerType.title" = "Tracker creation";
 "trackerType.habitButton" = "Habit";
 "trackerType.oneOffButton" = "One-Off Event";

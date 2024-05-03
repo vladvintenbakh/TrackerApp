@@ -265,7 +265,9 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonPressed() {
-        
+        let filtersVC = FiltersVC()
+        let navigationVC = UINavigationController(rootViewController: filtersVC)
+        present(navigationVC, animated: true)
     }
     
     private func hideEmptyPlaceholderView(_ flag: Bool) {

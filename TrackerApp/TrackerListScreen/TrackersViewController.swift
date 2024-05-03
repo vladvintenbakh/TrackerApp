@@ -14,6 +14,7 @@ final class TrackersViewController: UIViewController {
     private var trackerCollectionView: UICollectionView!
     private var emptyPlaceholderView: UIView!
     private var filtersButton: UIButton!
+    private var datePicker: UIDatePicker!
     
     private var categories: [TrackerCategory] = []
     private var completedTrackers: Set<TrackerRecord> = []
@@ -63,8 +64,10 @@ final class TrackersViewController: UIViewController {
         trackerStore.delegate = self
         trackerRecordStore.delegate = self
         
-        try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
-        try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
+//        try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
+//        try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
+        
+        loadFilteredData()
         
         hideEmptyPlaceholderView(trackerStore.numberOfTrackers != 0)
     }
@@ -93,6 +96,8 @@ final class TrackersViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
         
         let datePicker = UIDatePicker()
+        self.datePicker = datePicker
+        
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         datePicker.maximumDate = Date()
@@ -136,8 +141,10 @@ final class TrackersViewController: UIViewController {
         guard let safeActiveDate = Date.safeDate(sender.date) else { return }
         activeDate = safeActiveDate
         
-        _ = try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
-        _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
+        loadFilteredData()
+
+//        _ = try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
+//        _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
         
         trackerCollectionView.reloadData()
     }
@@ -285,6 +292,18 @@ final class TrackersViewController: UIViewController {
                                                                     userOperation: userOperation)
         trackerOptionsMenuVC.delegate = self
         present(trackerOptionsMenuVC, animated: true)
+    }
+    
+    private func loadFilteredData() {
+        switch activeFilter {
+        case .completed:
+            print("Completed trackers")
+        case .notCompleted:
+            print("Unfinished trackers")
+        default:
+            _ = try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
+            _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
+        }
     }
 }
 
@@ -559,5 +578,13 @@ extension TrackersViewController: UIContextMenuInteractionDelegate {
 extension TrackersViewController: FiltersVCDelegate {
     func didPickFilter(_ filter: FilterOptions) {
         activeFilter = filter
+        switch filter {
+        case .today:
+            datePicker.date = Date()
+            datePickerValueChanged(datePicker)
+            loadFilteredData()
+        default:
+            loadFilteredData()
+        }
     }
 }

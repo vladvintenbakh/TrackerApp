@@ -37,7 +37,8 @@ final class TrackersViewController: UIViewController {
     
     private var searchText = "" {
         didSet {
-            try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
+//            try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
+            loadFilteredData()
         }
     }
 
@@ -281,7 +282,7 @@ final class TrackersViewController: UIViewController {
     
     private func hideEmptyPlaceholderView(_ flag: Bool) {
         emptyPlaceholderView.isHidden = flag
-        filtersButton.isHidden = !flag
+        filtersButton.isHidden = !flag && activeFilter == .all
     }
     
     private func presentTrackerOptionsMenuVC(trackerObject: Tracker.TrackerObject?,
@@ -297,9 +298,21 @@ final class TrackersViewController: UIViewController {
     private func loadFilteredData() {
         switch activeFilter {
         case .completed:
-            print("Completed trackers")
+            _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
+            _ = try? trackerStore.loadTrackersForDate(
+                activeDate,
+                searchText: searchText,
+                recordIDs: completedTrackers.map { $0.trackerID.uuidString },
+                filter: .completed
+            )
         case .notCompleted:
-            print("Unfinished trackers")
+            _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
+            _ = try? trackerStore.loadTrackersForDate(
+                activeDate,
+                searchText: searchText,
+                recordIDs: completedTrackers.map { $0.trackerID.uuidString },
+                filter: .notCompleted
+            )
         default:
             _ = try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
             _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
@@ -456,6 +469,7 @@ extension TrackersViewController: TrackerCollectionViewCellDelegate {
             cell.changeCompletionStatus(to: true)
             cell.incrementDayCount()
         }
+        loadFilteredData()
     }
 }
 

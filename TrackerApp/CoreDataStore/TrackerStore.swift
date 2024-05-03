@@ -134,7 +134,10 @@ final class TrackerStore: NSObject {
                        isPinned: isPinned)
     }
     
-    func loadTrackersForDate(_ date: Date, searchText: String) throws {
+    func loadTrackersForDate(_ date: Date, 
+                             searchText: String,
+                             recordIDs: [String] = [],
+                             filter: FilterOptions = .all) throws {
         let weekdayAbbreviation = dateFormatter.string(from: date)
         
         var predicates: [NSPredicate] = []
@@ -150,6 +153,16 @@ final class TrackerStore: NSObject {
             predicates.append(NSPredicate(format: "%K contains[c] %@",
                                           #keyPath(TrackerCoreData.name),
                                           searchText))
+        }
+        
+        if filter == .completed {
+            predicates.append(NSPredicate(format: "%K IN %@",
+                                          #keyPath(TrackerCoreData.trackerID),
+                                          recordIDs))
+        } else if filter == .notCompleted {
+            predicates.append(NSPredicate(format: "NOT(%K IN %@)",
+                                          #keyPath(TrackerCoreData.trackerID),
+                                          recordIDs))
         }
         
         fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)

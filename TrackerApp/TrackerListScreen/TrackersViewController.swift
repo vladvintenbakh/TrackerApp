@@ -276,6 +276,9 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonPressed() {
+        analyticsService.report(event: "click", params: ["screen": "Main",
+                                                         "item": "filter"])
+        
         let filtersVC = FiltersVC(currentFilter: activeFilter)
         filtersVC.delegate = self
         let navigationVC = UINavigationController(rootViewController: filtersVC)

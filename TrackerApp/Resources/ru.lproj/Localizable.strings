@@ -33,6 +33,7 @@
 "filters.trackersForToday" = "Трекеры на сегодня";
 "filters.completed" = "Завершенные";
 "filters.notCompleted" = "Не завершенные";
+"filters.emptyPlaceholder" = "Ничего не найдено";
 
 "trackerType.title" = "Создание трекера";
 "trackerType.habitButton" = "Привычка";

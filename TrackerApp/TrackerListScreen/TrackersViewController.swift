@@ -15,6 +15,8 @@ final class TrackersViewController: UIViewController {
     private var emptyPlaceholderView: UIView!
     private var filtersButton: UIButton!
     private var datePicker: UIDatePicker!
+    private var emptyPlaceholderImageView: UIImageView!
+    private var emptyPlaceholderLabel: UILabel!
     
     private var categories: [TrackerCategory] = []
     private var completedTrackers: Set<TrackerRecord> = []
@@ -37,7 +39,6 @@ final class TrackersViewController: UIViewController {
     
     private var searchText = "" {
         didSet {
-//            try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
             loadFilteredData()
         }
     }
@@ -64,9 +65,6 @@ final class TrackersViewController: UIViewController {
         
         trackerStore.delegate = self
         trackerRecordStore.delegate = self
-        
-//        try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
-//        try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
         
         loadFilteredData()
         
@@ -143,9 +141,6 @@ final class TrackersViewController: UIViewController {
         activeDate = safeActiveDate
         
         loadFilteredData()
-
-//        _ = try? trackerStore.loadTrackersForDate(activeDate, searchText: searchText)
-//        _ = try? trackerRecordStore.loadCompletedTrackersForDate(activeDate)
         
         trackerCollectionView.reloadData()
     }
@@ -225,6 +220,7 @@ final class TrackersViewController: UIViewController {
         
         let imageView = UIImageView(image: UIImage(named: "StarPlaceholder"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        emptyPlaceholderImageView = imageView
         placeholderView.addSubview(imageView)
         
         let label = UILabel()
@@ -233,6 +229,7 @@ final class TrackersViewController: UIViewController {
         label.textColor = UIColor(named: "YPBlack")
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        emptyPlaceholderLabel = label
         placeholderView.addSubview(label)
         
         NSLayoutConstraint.activate([
@@ -288,6 +285,19 @@ final class TrackersViewController: UIViewController {
     private func hideEmptyPlaceholderView(_ flag: Bool) {
         emptyPlaceholderView.isHidden = flag
         filtersButton.isHidden = !flag && activeFilter == .all
+        if filtersButton.isHidden {
+            emptyPlaceholderImageView.image = UIImage(named: "StarPlaceholder")
+            emptyPlaceholderLabel.text = NSLocalizedString(
+                "mainScreen.emptyPlaceholder",
+                comment: ""
+            )
+        } else {
+            emptyPlaceholderImageView.image = UIImage(named: "NoResultsPlaceholder")
+            emptyPlaceholderLabel.text = NSLocalizedString(
+                "filters.emptyPlaceholder",
+                comment: ""
+            )
+        }
     }
     
     private func presentTrackerOptionsMenuVC(trackerObject: Tracker.TrackerObject?,

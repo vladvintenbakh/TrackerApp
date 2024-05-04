@@ -33,6 +33,7 @@
 "filters.trackersForToday" = "Trackers for today";
 "filters.completed" = "Completed";
 "filters.notCompleted" = "Not completed";
+"filters.emptyPlaceholder" = "No results";
 
 "trackerType.title" = "Tracker creation";
 "trackerType.habitButton" = "Habit";

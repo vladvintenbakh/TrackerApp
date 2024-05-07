@@ -24,7 +24,8 @@ final class OnboardingPageVC: UIPageViewController {
         
         button.backgroundColor = UIColor(named: "YPBlack")
         
-        button.setTitle("Let me try!", for: .normal)
+        let buttonTitle = NSLocalizedString("onboarding.button", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.titleLabel?.textColor = UIColor(named: "YPWhite")
         

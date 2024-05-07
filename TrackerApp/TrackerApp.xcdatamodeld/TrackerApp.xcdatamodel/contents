@@ -10,6 +10,7 @@
         <attribute name="colorHex" attributeType="String"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="emoji" attributeType="String"/>
+        <attribute name="isPinned" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="schedule" optional="YES" attributeType="String"/>
         <attribute name="trackerID" attributeType="String"/>
@@ -17,8 +18,8 @@
         <relationship name="records" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrackerRecordCoreData" inverseName="tracker" inverseEntity="TrackerRecordCoreData"/>
     </entity>
     <entity name="TrackerRecordCoreData" representedClassName="TrackerRecordCoreData" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="recordID" optional="YES" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="recordID" attributeType="String"/>
         <relationship name="tracker" maxCount="1" deletionRule="Nullify" destinationEntity="TrackerCoreData" inverseName="records" inverseEntity="TrackerCoreData"/>
     </entity>
 </model>

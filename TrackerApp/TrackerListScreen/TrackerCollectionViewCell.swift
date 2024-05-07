@@ -18,7 +18,6 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -27,7 +26,6 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = UIColor(named: "YPWhite")?.withAlphaComponent(0.3)
         view.layer.cornerRadius = 12
         view.layer.masksToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -36,7 +34,6 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = UIColor(named: "YPWhite")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -46,48 +43,61 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor(named: "TrackerCellBorder")?.cgColor
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let numDaysLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var markCompletedButton: UIButton = {
         let button = UIButton()
-        button.tintColor = UIColor(named: "YPWhite")
+        button.tintColor = UIColor(named: "CompletedButton")
         button.setImage(UIImage(named: "plus"), for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(pressedMarkCompletedButton), for: .touchUpInside)
         
         return button
     }()
     
+    private let pinImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "PinIcon"))
+        image.isHidden = false
+        return image
+    }()
+    
     private var currentTracker: Tracker?
     private var dayCount = 0 {
         willSet {
-            numDaysLabel.text = "\(newValue) day(s)"
+            numDaysLabel.text = String.localizedStringWithFormat(
+                NSLocalizedString("numberOfDays", comment: ""),
+                newValue
+            )
         }
     }
+    
+    private let analyticsService = AnalyticsService()
     
     weak var delegate: TrackerCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.addSubview(topContainerView)
-        contentView.addSubview(emojiBackgroundView)
-        contentView.addSubview(selectedEmoji)
-        contentView.addSubview(trackerNameLabel)
-        contentView.addSubview(numDaysLabel)
-        contentView.addSubview(markCompletedButton)
+        let containerSubviews = [emojiBackgroundView, selectedEmoji, trackerNameLabel, pinImage]
+        containerSubviews.forEach { item in
+            item.translatesAutoresizingMaskIntoConstraints = false
+            topContainerView.addSubview(item)
+        }
+        
+        let views = [topContainerView, numDaysLabel, markCompletedButton]
+        views.forEach { item in
+            item.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(item)
+        }
         
         setUpConstraints()
     }
@@ -139,7 +149,12 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
                                                           constant: -12),
             markCompletedButton.centerYAnchor.constraint(equalTo: numDaysLabel.centerYAnchor),
             markCompletedButton.widthAnchor.constraint(equalToConstant: 34),
-            markCompletedButton.heightAnchor.constraint(equalToConstant: 34)
+            markCompletedButton.heightAnchor.constraint(equalToConstant: 34),
+            
+            pinImage.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor, constant: -12),
+            pinImage.topAnchor.constraint(equalTo: topContainerView.topAnchor, constant: 18),
+            pinImage.widthAnchor.constraint(equalToConstant: 8),
+            pinImage.heightAnchor.constraint(equalToConstant: 12),
         ])
     }
     
@@ -151,19 +166,25 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         dayCount -= 1
     }
     
-    func updateContent(tracker: Tracker, completionStatus: Bool, dayCount: Int) {
+    func updateContent(tracker: Tracker,
+                       completionStatus: Bool,
+                       dayCount: Int,
+                       interaction: UIInteraction) {
         self.currentTracker = tracker
         self.dayCount = dayCount
         
-        updateUI(color: tracker.color, emoji: tracker.emoji, name: tracker.name)
+        topContainerView.addInteraction(interaction)
+        
+        updateUI(color: tracker.color, emoji: tracker.emoji, name: tracker.name, isPinShown: tracker.isPinned)
         changeCompletionStatus(to: completionStatus)
     }
     
-    private func updateUI(color: UIColor, emoji: String, name: String) {
+    private func updateUI(color: UIColor, emoji: String, name: String, isPinShown: Bool) {
         topContainerView.backgroundColor = color
         markCompletedButton.backgroundColor = color
         selectedEmoji.text = emoji
         trackerNameLabel.text = name
+        pinImage.isHidden = !isPinShown
     }
     
     func changeCompletionStatus(to completionStatus: Bool) {
@@ -175,6 +196,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func pressedMarkCompletedButton() {
+        analyticsService.report(event: "click", params: ["screen": "Main", "item": "track"])
         guard let currentTracker else { return }
         delegate?.didMarkDayCompleted(for: currentTracker, cell: self)
     }

@@ -1,0 +1,69 @@
+/* 
+  Localizable.strings
+  TrackerApp
+
+  Created by Vlad Vintenbakh on 21/4/24.
+  
+*/
+
+"shared.doneButton" = "Done";
+"shared.trackerTabTitle" = "Trackers";
+"shared.category" = "Category";
+"shared.schedule" = "Schedule";
+
+"onboarding.firstPage" = "Track absolutely anything";
+"onboarding.secondPage" = "And not just healthy stuff like exercise";
+"onboarding.button" = "Let me try!";
+
+"mainScreen.searchBarPlaceholder" = "Search";
+"mainScreen.emptyPlaceholder" = "Nothing here for now";
+"mainScreen.tabBarItemTwo" = "Statistics";
+"mainScreen.pinned" = "Pinned";
+"mainScreen.pin" = "Pin";
+"mainScreen.unpin" = "Unpin";
+"mainScreen.edit" = "Edit";
+"mainScreen.delete" = "Delete";
+"mainScreen.deleteAlert.confirmationMessage" = "Are you sure you would like to delete this tracker?";
+"mainScreen.deleteAlert.cancel" = "Cancel";
+"mainScreen.deleteAlert.delete" = "Delete";
+"mainScreen.filtersButton" = "Filters";
+
+"filters.title" = "Filters";
+"filters.allTrackers" = "All trackers";
+"filters.trackersForToday" = "Trackers for today";
+"filters.completed" = "Completed";
+"filters.notCompleted" = "Not completed";
+"filters.emptyPlaceholder" = "No results";
+
+"trackerType.title" = "Tracker creation";
+"trackerType.habitButton" = "Habit";
+"trackerType.oneOffButton" = "One-Off Event";
+
+"trackerCreationMenu.textFieldPlaceholder" = "Enter tracker name";
+"trackerCreationMenu.emojiHeader" = "Emoji";
+"trackerCreationMenu.colorHeader" = "Color";
+"trackerCreationMenu.cancelButton" = "Cancel";
+"trackerCreationMenu.createButton" = "Create";
+
+"categories.emptyPlaceholder" = "Group habits/events into categories";
+"categories.addCategoryButton" = "Add a new category";
+"categories.editAction" = "Edit";
+"categories.deleteAction" = "Delete";
+"categories.deleteAlertText" = "Delete %@?";
+"categories.cancelAction" = "Cancel";
+
+"categoryCreation.title" = "New category";
+"categoryCreation.textFieldPlaceholder" = "Enter category name";
+
+"schedule.everyDay" = "Every day";
+"schedule.mon" = "Mon";
+"schedule.tue" = "Tue";
+"schedule.wed" = "Wed";
+"schedule.thu" = "Thu";
+"schedule.fri" = "Fri";
+"schedule.sat" = "Sat";
+"schedule.sun" = "Sun";
+
+"statsScreen.title" = "Statistics";
+"statsScreen.emptyPlaceholder" = "No stats to report";
+"stats.trackersCompleted" = "Tracker(s) completed";

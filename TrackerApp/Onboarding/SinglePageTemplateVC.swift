@@ -68,9 +68,9 @@ final class SinglePageTemplateVC: UIViewController {
         
         switch infoLabelText {
         case .firstPage:
-            infoLabel.text = "Track absolutely anything"
+            infoLabel.text = NSLocalizedString("onboarding.firstPage", comment: "")
         case .secondPage:
-            infoLabel.text = "And not just healthy stuff like exercise"
+            infoLabel.text = NSLocalizedString("onboarding.secondPage", comment: "")
         }
     }
     

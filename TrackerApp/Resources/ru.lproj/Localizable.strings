@@ -1,0 +1,69 @@
+/* 
+  Localizable.strings
+  TrackerApp
+
+  Created by Vlad Vintenbakh on 21/4/24.
+  
+*/
+
+"shared.doneButton" = "Готово";
+"shared.trackerTabTitle" = "Трекеры";
+"shared.category" = "Категория";
+"shared.schedule" = "Расписание";
+
+"onboarding.firstPage" = "Отслеживайте только то, что хотите";
+"onboarding.secondPage" = "Даже если это не литры воды и йога";
+"onboarding.button" = "Вот это технологии!";
+
+"mainScreen.searchBarPlaceholder" = "Поиск";
+"mainScreen.emptyPlaceholder" = "Что будем отслеживать?";
+"mainScreen.tabBarItemTwo" = "Статистика";
+"mainScreen.pinned" = "Закрепленные";
+"mainScreen.pin" = "Закрепить";
+"mainScreen.unpin" = "Открепить";
+"mainScreen.edit" = "Редактировать";
+"mainScreen.delete" = "Удалить";
+"mainScreen.deleteAlert.confirmationMessage" = "Уверены что хотите удалить трекер?";
+"mainScreen.deleteAlert.cancel" = "Отменить";
+"mainScreen.deleteAlert.delete" = "Удалить";
+"mainScreen.filtersButton" = "Фильтры";
+
+"filters.title" = "Фильтры";
+"filters.allTrackers" = "Все трекеры";
+"filters.trackersForToday" = "Трекеры на сегодня";
+"filters.completed" = "Завершенные";
+"filters.notCompleted" = "Не завершенные";
+"filters.emptyPlaceholder" = "Ничего не найдено";
+
+"trackerType.title" = "Создание трекера";
+"trackerType.habitButton" = "Привычка";
+"trackerType.oneOffButton" = "Нерегулярное событие";
+
+"trackerCreationMenu.textFieldPlaceholder" = "Введите название трекера";
+"trackerCreationMenu.emojiHeader" = "Emoji";
+"trackerCreationMenu.colorHeader" = "Цвет";
+"trackerCreationMenu.cancelButton" = "Отменить";
+"trackerCreationMenu.createButton" = "Создать";
+
+"categories.emptyPlaceholder" = "Привычки и события можно объединить по смыслу";
+"categories.addCategoryButton" = "Добавить категорию";
+"categories.editAction" = "Редактировать";
+"categories.deleteAction" = "Удалить";
+"categories.deleteAlertText" = "Удалить %@?";
+"categories.cancelAction" = "Отменить";
+
+"categoryCreation.title" = "Новая категория";
+"categoryCreation.textFieldPlaceholder" = "Введите название категории";
+
+"schedule.everyDay" = "Каждый день";
+"schedule.mon" = "Пн";
+"schedule.tue" = "Вт";
+"schedule.wed" = "Ср";
+"schedule.thu" = "Чт";
+"schedule.fri" = "Пт";
+"schedule.sat" = "Сб";
+"schedule.sun" = "Вс";
+
+"statsScreen.title" = "Статистика";
+"statsScreen.emptyPlaceholder" = "Анализировать пока нечего";
+"stats.trackersCompleted" = "Трекеров завершено";

@@ -66,7 +66,10 @@ final class TrackerCreationHelper {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         
-        textField.placeholder = "Enter tracker name"
+        textField.placeholder = NSLocalizedString(
+            "trackerCreationMenu.textFieldPlaceholder",
+            comment: ""
+        )
         textField.layer.cornerRadius = 16
         textField.layer.masksToBounds = true
         textField.backgroundColor = UIColor(named: "TextFieldGray")

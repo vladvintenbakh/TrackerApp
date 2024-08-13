@@ -1,5 +1,7 @@
 # **Tracker**
 
+https://github.com/user-attachments/assets/5002cd1e-9bb2-4d2f-a905-24cc623d6497
+
 # Links
 
 [Figma Design](https://www.figma.com/file/gONgrq8Q5PfEs1LUo7KX4h/Tracker?type=design&node-id=0-1&mode=design)
